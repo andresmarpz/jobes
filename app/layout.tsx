@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const inter = Inter({
@@ -19,7 +20,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased dark`}>{children}</body>
+      <body className={`${inter.variable} antialiased dark`}>
+        <nav className="border-b">
+          <div className="container mx-auto flex h-14 items-center px-4">
+            <Link href="/" className="font-semibold mr-8">
+              Jobes
+            </Link>
+            <div className="flex gap-6">
+              <Link href="/companies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Companies
+              </Link>
+              <Link href="/applications" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Applications
+              </Link>
+              <Link href="/tools" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Tools
+              </Link>
+            </div>
+          </div>
+        </nav>
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
