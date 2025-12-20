@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { toolCategories } from "./data";
+
+export const metadata: Metadata = {
+  title: "Tools",
+};
 
 export default function ToolsPage() {
   return (

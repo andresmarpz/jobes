@@ -1,9 +1,19 @@
-import { CompaniesPageContent } from "@/features/companies/components/companies-page-content"
+import { CompanyForm } from "@/features/companies/components/company-form";
+import { CompaniesTable } from "@/features/companies/components/companies-table";
+import { Metadata } from "next";
 
-export default function CompaniesPage() {
+export const metadata: Metadata = {
+  title: "Companies",
+};
+
+export default function Companies() {
   return (
-    <div className="container mx-auto py-8 px-4">
-      <CompaniesPageContent />
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">Companies</h1>
+        <CompanyForm />
+      </div>
+      <CompaniesTable />
     </div>
-  )
+  );
 }

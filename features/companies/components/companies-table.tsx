@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { useCompanies } from "../hooks/use-companies"
-import { columns } from "./columns"
-import { DataTable } from "./data-table"
+import { DataTable } from "@/components/ui/data-table";
+import { useCompanies } from "../hooks/use-companies";
+import { columns } from "@/features/companies/components/table-columns";
 
 export function CompaniesTable() {
-  const { companies, isLoading, error } = useCompanies()
+  const { companies, isLoading, error } = useCompanies();
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
         <p className="text-muted-foreground">Loading companies...</p>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -20,7 +20,7 @@ export function CompaniesTable() {
       <div className="flex items-center justify-center py-8">
         <p className="text-destructive">Error: {error}</p>
       </div>
-    )
+    );
   }
 
   if (companies.length === 0) {
@@ -30,8 +30,8 @@ export function CompaniesTable() {
           No companies yet. Click &quot;Add Company&quot; to get started.
         </p>
       </div>
-    )
+    );
   }
 
-  return <DataTable columns={columns} data={companies} />
+  return <DataTable columns={columns} data={companies} />;
 }

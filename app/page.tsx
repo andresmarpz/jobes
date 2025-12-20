@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useCompanies } from "@/features/companies/hooks/use-companies"
-import { toolCategories } from "./tools/data"
+import Link from "next/link";
+import { useCompanies } from "@/features/companies/hooks/use-companies";
+import { toolCategories } from "./tools/data";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const { companies, isLoading } = useCompanies()
+  const { companies, isLoading } = useCompanies();
 
   const totalContacts = companies.reduce(
     (sum, company) => sum + company.contacts.length,
     0
-  )
+  );
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div>
       <h1 className="text-3xl font-bold tracking-tight mb-8">Dashboard</h1>
 
       <div className="grid gap-8">
@@ -59,8 +59,8 @@ export default function Home() {
                   {isLoading
                     ? "..."
                     : companies.length > 0
-                      ? (totalContacts / companies.length).toFixed(1)
-                      : "0"}
+                    ? (totalContacts / companies.length).toFixed(1)
+                    : "0"}
                 </CardTitle>
               </CardHeader>
             </Card>
@@ -112,7 +112,7 @@ export default function Home() {
                         rel="noopener noreferrer"
                       >
                         <Button variant="secondary" size="sm" className="gap-2">
-                          <span className="size-4 flex-shrink-0 [&>svg]:size-4">
+                          <span className="size-4 shrink-0 [&>svg]:size-4">
                             {tool.icon}
                           </span>
                           {tool.name}
@@ -127,5 +127,5 @@ export default function Home() {
         </section>
       </div>
     </div>
-  )
+  );
 }
