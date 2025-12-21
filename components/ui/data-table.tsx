@@ -55,6 +55,9 @@ export function DataTable<TData, TValue>({
                     key={header.id}
                     style={{
                       width: columnSize ? `${columnSize}px` : undefined,
+                      maxWidth:
+                        header.id === "select" ? `${columnSize}px` : undefined,
+                      minWidth: 0,
                     }}
                   >
                     {header.isPlaceholder ? null : header.column.getCanSort() ? (

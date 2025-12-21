@@ -1,8 +1,31 @@
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Company } from "@/features/companies/types";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<Company>[] = [
+  {
+    cell: ({ row }) => (
+      <Checkbox
+        aria-label="Select row"
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+      />
+    ),
+    enableSorting: false,
+    header: ({ table }) => {
+      const isAllSelected = table.getIsAllPageRowsSelected();
+      return (
+        <Checkbox
+          aria-label="Select all rows"
+          checked={isAllSelected}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        />
+      );
+    },
+    id: "select",
+    size: 28,
+  },
   {
     accessorKey: "name",
     header: "Name",

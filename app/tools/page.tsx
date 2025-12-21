@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function ToolsPage() {
   return (
     <div className="min-h-screen">
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main>
         <div className="mb-12">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
             Tools
