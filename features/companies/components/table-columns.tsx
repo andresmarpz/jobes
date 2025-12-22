@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Company } from "@/features/companies/types";
 import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
 export const columns: ColumnDef<Company>[] = [
   {
@@ -30,7 +31,11 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => (
-      <div className="font-medium font-mono">{row.original.name}</div>
+      <Link href={`/companies/${row.original.id}`}>
+        <div className="font-medium font-mono hover:underline">
+          {row.original.name}
+        </div>
+      </Link>
     ),
     size: 80,
   },
@@ -74,5 +79,6 @@ export const columns: ColumnDef<Company>[] = [
     sortingFn: (rowA, rowB) => {
       return rowA.original.contacts.length - rowB.original.contacts.length;
     },
+    size: 60,
   },
 ];

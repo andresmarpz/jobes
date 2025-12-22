@@ -44,6 +44,7 @@ export function useCompanies(initialSortConfig?: SortConfig) {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadCompanies();
   }, [loadCompanies]);
 
@@ -196,6 +197,7 @@ export function useCompany(id: string) {
   }, [id]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadCompany();
   }, [loadCompany]);
 
