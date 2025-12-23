@@ -44,7 +44,7 @@ export const columns: ColumnDef<Application>[] = [
     header: "Position",
     cell: ({ row }) => (
       <Link href={`/applications/${row.original.id}`}>
-        <div className="font-mono font-medium hover:underline">{row.original.position}</div>
+        <div className="py-3 font-mono font-medium hover:underline">{row.original.position}</div>
       </Link>
     ),
     size: 200

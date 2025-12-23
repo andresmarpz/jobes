@@ -1,3 +1,4 @@
+import TableHyperlinkCell from "@/components/shared/table-hyperlink-cell";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Company } from "@/features/companies/types";
@@ -25,14 +26,14 @@ export const columns: ColumnDef<Company>[] = [
       );
     },
     id: "select",
-    size: 28
+    size: 32
   },
   {
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
-        <div className="py-2 font-mono font-medium hover:underline">{row.original.name}</div>
+        <div className="py-3 font-mono font-medium hover:underline">{row.original.name}</div>
       </Link>
     ),
     size: 80
@@ -48,21 +49,13 @@ export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "websiteUrl",
     header: "Website",
-    cell: ({ row }) => (
-      <div className="text-muted-foreground truncate font-mono font-medium">
-        {row.original.websiteUrl || "-"}
-      </div>
-    ),
+    cell: ({ row }) => <TableHyperlinkCell url={row.original.websiteUrl ?? undefined} />,
     size: 100
   },
   {
     accessorKey: "linkedinUrl",
     header: "LinkedIn",
-    cell: ({ row }) => (
-      <div className="text-muted-foreground truncate font-mono font-medium">
-        {row.original.linkedinUrl || "-"}
-      </div>
-    ),
+    cell: ({ row }) => <TableHyperlinkCell url={row.original.linkedinUrl ?? undefined} />,
     size: 100
   },
   {
@@ -75,6 +68,6 @@ export const columns: ColumnDef<Company>[] = [
     sortingFn: (rowA, rowB) => {
       return rowA.original.contacts.length - rowB.original.contacts.length;
     },
-    size: 60
+    size: 40
   }
 ];

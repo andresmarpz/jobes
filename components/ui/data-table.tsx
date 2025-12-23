@@ -42,56 +42,52 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   return (
     <Frame className="w-full">
       <Table className="table-fixed">
+        <colgroup>
+          {table.getAllColumns().map(column => (
+            <col
+              key={column.id}
+              style={{
+                width: column.id === "select" ? `${column.getSize()}px` : "auto"
+              }}
+            />
+          ))}
+        </colgroup>
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map(header => {
-                const columnSize = header.column.getSize();
-
-                return (
-                  <TableHead
-                    key={header.id}
-                    style={{
-                      width: columnSize ? `${columnSize}px` : undefined,
-                      maxWidth: header.id === "select" ? `${columnSize}px` : undefined,
-                      minWidth: 0
-                    }}
-                  >
-                    {header.isPlaceholder ? null : header.column.getCanSort() ? (
-                      <button
-                        className="flex h-full w-full items-center justify-between gap-2 select-none"
-                        onClick={header.column.getToggleSortingHandler()}
-                        onKeyDown={e => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            header.column.getToggleSortingHandler()?.(e);
-                          }
-                        }}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: (
-                            <ArrowUpIcon
-                              aria-hidden="true"
-                              className="size-4 shrink-0 opacity-80"
-                            />
-                          ),
-                          desc: (
-                            <ArrowDownIcon
-                              aria-hidden="true"
-                              className="size-4 shrink-0 opacity-80"
-                            />
-                          )
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </button>
-                    ) : (
-                      flexRender(header.column.columnDef.header, header.getContext())
-                    )}
-                  </TableHead>
-                );
-              })}
+              {headerGroup.headers.map(header => (
+                <TableHead key={header.id}>
+                  {header.isPlaceholder ? null : header.column.getCanSort() ? (
+                    <button
+                      className="flex h-full w-full items-center justify-between gap-2 select-none"
+                      onClick={header.column.getToggleSortingHandler()}
+                      onKeyDown={e => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          header.column.getToggleSortingHandler()?.(e);
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {{
+                        asc: (
+                          <ArrowUpIcon aria-hidden="true" className="size-4 shrink-0 opacity-80" />
+                        ),
+                        desc: (
+                          <ArrowDownIcon
+                            aria-hidden="true"
+                            className="size-4 shrink-0 opacity-80"
+                          />
+                        )
+                      }[header.column.getIsSorted() as string] ?? null}
+                    </button>
+                  ) : (
+                    flexRender(header.column.columnDef.header, header.getContext())
+                  )}
+                </TableHead>
+              ))}
             </TableRow>
           ))}
         </TableHeader>
