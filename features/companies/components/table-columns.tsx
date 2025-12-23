@@ -63,7 +63,11 @@ export const columns: ColumnDef<Company>[] = [
     header: "Contacts",
     cell: ({ row }) => {
       const contacts = row.original.contacts;
-      return <Badge variant="secondary">{contacts.length}</Badge>;
+      return (
+        <Badge variant="secondary" className="select-none">
+          {contacts.length}
+        </Badge>
+      );
     },
     sortingFn: (rowA, rowB) => {
       return rowA.original.contacts.length - rowB.original.contacts.length;

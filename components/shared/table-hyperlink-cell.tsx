@@ -19,7 +19,7 @@ export default function TableHyperlinkCell({ url }: Props) {
     >
       <div
         data-is-url={!!url}
-        className="text-muted-foreground data-[is-url=true]:text-primary truncate font-mono font-medium"
+        className="text-muted-foreground data-[is-url=true]:text-primary truncate font-mono font-medium data-[is-url=false]:select-none"
       >
         {websiteUrl}
       </div>
