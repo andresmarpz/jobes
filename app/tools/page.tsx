@@ -13,28 +13,43 @@ export default function ToolsPage() {
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
             Tools
           </h1>
+          <p className="text-muted-foreground mt-2 text-sm">
+            Everything you need for your job search
+          </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-10">
           {toolCategories.map(category => (
             <section key={category.name}>
-              <h2 className="mb-3 text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                {category.name}
-              </h2>
+              <div className="mb-4 flex items-center gap-3">
+                <h2 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  {category.name}
+                </h2>
+                <div className="bg-border h-px flex-1" />
+              </div>
 
-              <div className="flex flex-wrap gap-2">
-                {category.tools.map(tool => (
-                  <a
-                    key={tool.name}
-                    href={tool.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-100"
-                  >
-                    <span className="text-zinc-500 dark:text-zinc-400">{tool.icon}</span>
-                    {tool.name}
-                  </a>
-                ))}
+              <div className="bg-muted/50 rounded-2xl p-1">
+                <div className="grid grid-cols-2 gap-1 sm:grid-cols-3 lg:grid-cols-4">
+                  {category.tools.map(tool => (
+                    <a
+                      key={tool.name}
+                      href={tool.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-background group relative overflow-hidden rounded-xl border bg-clip-padding p-4 shadow-xs transition-all before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] before:shadow-[0_1px_var(--color-black)/4%] hover:shadow-md dark:bg-clip-border dark:before:shadow-[0_-1px_var(--color-white)/8%]"
+                    >
+                      <div className="text-muted-foreground mb-3 transition-colors group-hover:text-zinc-900 dark:group-hover:text-zinc-100">
+                        {tool.icon}
+                      </div>
+                      <div className="font-medium text-zinc-900 dark:text-zinc-100">
+                        {tool.name}
+                      </div>
+                      <div className="text-muted-foreground mt-1 line-clamp-2 text-xs">
+                        {tool.description}
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
             </section>
           ))}
