@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Company } from "@/features/companies/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import { CompanyIcon } from "./company-icon";
 
 export const columns: ColumnDef<Company>[] = [
   {
@@ -33,7 +34,10 @@ export const columns: ColumnDef<Company>[] = [
     header: "Name",
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
-        <div className="py-3 font-mono font-medium hover:underline">{row.original.name}</div>
+        <div className="flex items-center gap-2 py-3 font-mono font-medium hover:underline">
+          <CompanyIcon websiteUrl={row.original.websiteUrl} />
+          {row.original.name}
+        </div>
       </Link>
     ),
     size: 80
