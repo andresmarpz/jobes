@@ -3,9 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ExternalLink, Pencil, Trash2, ArrowLeft } from "lucide-react";
+import { ExternalLink, Pencil, Trash2, ArrowLeft, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 import { useCompany } from "../hooks/use-companies";
 import { ContactList } from "./contact-list";
 import { DeleteCompanyDialog } from "./delete-company-dialog";
@@ -59,14 +65,23 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
           </Link>
         </Button>
         <h1 className="flex-1 text-3xl font-bold">{company.name}</h1>
-        <Button variant="outline" onClick={() => setIsEditDialogOpen(true)}>
-          <Pencil className="mr-2 h-4 w-4" />
-          Edit
-        </Button>
-        <Button variant="destructive" onClick={() => setIsDeleteDialogOpen(true)}>
-          <Trash2 className="mr-2 h-4 w-4" />
-          Delete
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onSelect={() => setIsEditDialogOpen(true)}>
+              <Pencil className="mr-2 h-4 w-4" />
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem variant="destructive" onSelect={() => setIsDeleteDialogOpen(true)}>
+              <Trash2 className="mr-2 h-4 w-4" />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <Frame>
