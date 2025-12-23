@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -24,6 +24,7 @@ import { DeleteCompanyDialog } from "./delete-company-dialog";
 import { EditCompanyDialog } from "./edit-company-dialog";
 import { Frame } from "@/components/ui/frame";
 import Head from "next/head";
+import { useIsMounted } from "@/hooks/use-is-mounted";
 
 type CompanyDetailProps = {
   companyId: string;
@@ -43,6 +44,14 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
   } = useCompany(companyId);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
+
+  const isMounted = useIsMounted();
+
+  useEffect(() => {
+    if (isMounted() && company) {
+      document.title = `Company — ${company.name}`;
+    }
+  }, [company, isMounted]);
 
   const handleBlur = useCallback(
     (field: "name" | "description", ref: React.RefObject<HTMLElement | null>) => {
