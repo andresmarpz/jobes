@@ -4,7 +4,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Effect } from "effect";
 import type { Company, CreateCompanyInput, UpdateCompanyInput } from "../types";
 import * as CompanyService from "../services/company-service";
+import { findWorkingIconUrl } from "../services/icon-validation";
 import { companyKeys } from "./keys";
+
+async function validateAndUpdateIconUrls(company: Company): Promise<void> {
+  if (company.iconUrls.length === 0) return;
+
+  const workingUrl = await findWorkingIconUrl(company.iconUrls);
+  const validatedUrls = workingUrl ? [workingUrl] : [];
+
+  // Only update if the validated URLs are different
+  if (JSON.stringify(validatedUrls) !== JSON.stringify(company.iconUrls)) {
+    await Effect.runPromise(
+      CompanyService.updateCompany(company.id, { iconUrls: validatedUrls })
+    );
+  }
+}
 
 export function useCreateCompanyMutation() {
   const queryClient = useQueryClient();
@@ -24,6 +39,7 @@ export function useCreateCompanyMutation() {
       const optimisticCompany: Company = {
         id: crypto.randomUUID(),
         ...newCompany,
+        iconUrls: [],
         contacts: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
@@ -40,6 +56,9 @@ export function useCreateCompanyMutation() {
       if (context?.previousCompanies) {
         queryClient.setQueryData(companyKeys.lists(), context.previousCompanies);
       }
+    },
+    onSuccess: async company => {
+      await validateAndUpdateIconUrls(company);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: companyKeys.lists() });
@@ -87,6 +106,12 @@ export function useUpdateCompanyMutation() {
       }
       if (context?.previousCompany) {
         queryClient.setQueryData(companyKeys.detail(id), context.previousCompany);
+      }
+    },
+    onSuccess: async (company, { input }) => {
+      // Only validate if websiteUrl changed (iconUrls were rebuilt with candidates)
+      if (input.websiteUrl !== undefined) {
+        await validateAndUpdateIconUrls(company);
       }
     },
     onSettled: (_data, _error, { id }) => {

@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { useCompany } from "../hooks/use-companies";
+import { CompanyIcon } from "./company-icon";
 import { ContactList } from "./contact-list";
 import { DeleteCompanyDialog } from "./delete-company-dialog";
 import { EditCompanyDialog } from "./edit-company-dialog";
@@ -124,6 +125,7 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
             <IconArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
+        <CompanyIcon iconUrls={company.iconUrls} size={32} />
         <h1
           ref={nameRef}
           contentEditable

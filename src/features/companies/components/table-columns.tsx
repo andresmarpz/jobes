@@ -36,7 +36,7 @@ export const columns: ColumnDef<Company>[] = [
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
         <div className="flex items-center gap-2 truncate py-3 font-mono font-medium">
-          <CompanyIcon websiteUrl={row.original.websiteUrl} />
+          <CompanyIcon iconUrls={row.original.iconUrls} />
           {row.original.name}
         </div>
       </Link>
@@ -49,7 +49,7 @@ export const columns: ColumnDef<Company>[] = [
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
         <div className="text-muted-foreground truncate py-3 font-mono font-medium">
-          {row.original.description}
+          {row.original.description || "-"}
         </div>
       </Link>
     ),

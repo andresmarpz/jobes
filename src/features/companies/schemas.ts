@@ -11,7 +11,7 @@ export const contactSchema = z.object({
 
 export const companySchema = z.object({
   name: z.string().min(1, "Company name is required"),
-  description: z.string().min(1, "Description is required"),
+  description: z.string(),
   websiteUrl: urlSchema.transform(val => (val === "" ? null : val)),
   linkedinUrl: urlSchema.transform(val => (val === "" ? null : val))
 });

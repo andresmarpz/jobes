@@ -12,14 +12,15 @@ export type Company = {
   description: string;
   websiteUrl: string | null;
   linkedinUrl: string | null;
+  iconUrls: string[];
   contacts: Contact[];
   createdAt: string;
   updatedAt: string;
 };
 
-export type CreateCompanyInput = Omit<Company, "id" | "contacts" | "createdAt" | "updatedAt">;
+export type CreateCompanyInput = Omit<Company, "id" | "contacts" | "iconUrls" | "createdAt" | "updatedAt">;
 
-export type UpdateCompanyInput = Partial<CreateCompanyInput>;
+export type UpdateCompanyInput = Partial<CreateCompanyInput> & { iconUrls?: string[] };
 
 export type CreateContactInput = Omit<Contact, "id">;
 

@@ -56,7 +56,7 @@ export function CompanyDialog({
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-lg">
-        <DialogHeader>
+        <DialogHeader className="mb-4">
           <DialogTitle>{dialogTitle}</DialogTitle>
           {dialogDescription && <DialogDescription>{dialogDescription}</DialogDescription>}
         </DialogHeader>

@@ -40,7 +40,7 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Company Name</FormLabel>
+              <FormLabel>Company Name*</FormLabel>
               <FormControl>
                 <Input placeholder="Acme Inc." {...field} />
               </FormControl>
@@ -53,7 +53,7 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel className="text-zinc-400">Description</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="What does this company do?"
@@ -70,7 +70,7 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
           name="websiteUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Website URL (optional)</FormLabel>
+              <FormLabel className="text-zinc-400">Website URL</FormLabel>
               <FormControl>
                 <Input placeholder="https://example.com" {...field} value={field.value ?? ""} />
               </FormControl>
@@ -83,7 +83,7 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
           name="linkedinUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>LinkedIn URL (optional)</FormLabel>
+              <FormLabel className="text-zinc-400">LinkedIn URL</FormLabel>
               <FormControl>
                 <Input
                   placeholder="https://linkedin.com/company/example"

@@ -1,4 +1,4 @@
-import { Effect, Layer, ManagedRuntime } from "effect";
+import { Effect } from "effect";
 import type {
   Company,
   CreateCompanyInput,
@@ -24,6 +24,25 @@ export class ContactNotFoundError extends Error {
   }
 }
 
+function buildIconUrls(websiteUrl: string | null): string[] {
+  if (!websiteUrl) return [];
+
+  try {
+    const url = new URL(websiteUrl.startsWith("http") ? websiteUrl : `https://${websiteUrl}`);
+    const baseUrl = `${url.protocol}//${url.hostname}`;
+    const domain = url.hostname;
+
+    return [
+      `${baseUrl}/favicon.ico`,
+      `${baseUrl}/favicon.png`,
+      `${baseUrl}/apple-touch-icon.png`,
+      `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
+    ];
+  } catch {
+    return [];
+  }
+}
+
 export const getCompanies = getCompaniesFromStorage;
 
 export const getCompany = (id: string) =>
@@ -43,6 +62,7 @@ export const createCompany = (input: CreateCompanyInput) =>
     const newCompany: Company = {
       id: crypto.randomUUID(),
       ...input,
+      iconUrls: buildIconUrls(input.websiteUrl),
       contacts: [],
       createdAt: now,
       updatedAt: now
@@ -58,9 +78,22 @@ export const updateCompany = (id: string, input: UpdateCompanyInput) =>
     if (index === -1) {
       return yield* Effect.fail(new CompanyNotFoundError(id));
     }
+    const existing = companies[index];
+
+    // Determine iconUrls: explicit input > rebuild from new websiteUrl > keep existing
+    let iconUrls: string[];
+    if (input.iconUrls !== undefined) {
+      iconUrls = input.iconUrls;
+    } else if (input.websiteUrl !== undefined) {
+      iconUrls = buildIconUrls(input.websiteUrl);
+    } else {
+      iconUrls = existing.iconUrls;
+    }
+
     const updatedCompany: Company = {
-      ...companies[index],
+      ...existing,
       ...input,
+      iconUrls,
       updatedAt: new Date().toISOString()
     };
     const updatedCompanies = [...companies];
