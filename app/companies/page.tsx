@@ -3,7 +3,7 @@ import { CompaniesTable } from "@/features/companies/components/companies-table"
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Companies",
+  title: "Companies"
 };
 
 export default function Companies() {

@@ -1,22 +1,22 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import Link from "next/link"
-import "./globals.css"
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Link from "next/link";
+import "./globals.css";
 
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"]
-})
+});
 
 export const metadata: Metadata = {
   title: "Jobes",
   description: "Your personal dashboard to do job tracking the right way."
-}
+};
 
 export default function RootLayout({
   children
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -51,5 +51,5 @@ export default function RootLayout({
         <main className="container mx-auto px-4 py-8">{children}</main>
       </body>
     </html>
-  )
+  );
 }

@@ -11,34 +11,27 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "@/components/ui/select";
-import {
-  applicationSchema,
-  type ApplicationFormData,
-  type ApplicationFormInput,
-} from "../schemas";
+import { applicationSchema, type ApplicationFormData, type ApplicationFormInput } from "../schemas";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
 import { PlusIcon } from "lucide-react";
 import { useApplications } from "@/features/applications/hooks/use-applications";
 import { useState } from "react";
-import {
-  APPLICATION_STATUS_OPTIONS,
-  APPLICATION_METHOD_OPTIONS,
-} from "../constants";
+import { APPLICATION_STATUS_OPTIONS, APPLICATION_METHOD_OPTIONS } from "../constants";
 
 export function ApplicationForm() {
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -53,8 +46,8 @@ export function ApplicationForm() {
       jobUrl: "",
       salary: "",
       method: "ats_application",
-      notes: "",
-    },
+      notes: ""
+    }
   });
 
   const { createApplication } = useApplications();
@@ -62,7 +55,7 @@ export function ApplicationForm() {
   const handleSubmit = async (data: ApplicationFormData) => {
     await createApplication({
       ...data,
-      applicationDate: data.applicationDate.toISOString(),
+      applicationDate: data.applicationDate.toISOString()
     });
     form.reset();
     setDialogOpen(false);
@@ -86,10 +79,7 @@ export function ApplicationForm() {
           <DialogTitle>Add Application</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-4"
-          >
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="position"
@@ -127,14 +117,10 @@ export function ApplicationForm() {
                       <Input
                         type="date"
                         value={
-                          field.value instanceof Date
-                            ? field.value.toISOString().split("T")[0]
-                            : ""
+                          field.value instanceof Date ? field.value.toISOString().split("T")[0] : ""
                         }
-                        onChange={(e) => {
-                          const date = e.target.value
-                            ? new Date(e.target.value)
-                            : new Date();
+                        onChange={e => {
+                          const date = e.target.value ? new Date(e.target.value) : new Date();
                           field.onChange(date);
                         }}
                         onBlur={field.onBlur}
@@ -152,17 +138,14 @@ export function ApplicationForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Status</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select status" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {APPLICATION_STATUS_OPTIONS.map((option) => (
+                        {APPLICATION_STATUS_OPTIONS.map(option => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
                           </SelectItem>
@@ -199,11 +182,7 @@ export function ApplicationForm() {
                   <FormItem>
                     <FormLabel>Salary (optional)</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="$120k - $150k"
-                        {...field}
-                        value={field.value ?? ""}
-                      />
+                      <Input placeholder="$120k - $150k" {...field} value={field.value ?? ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -215,17 +194,14 @@ export function ApplicationForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Method</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select method" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {APPLICATION_METHOD_OPTIONS.map((option) => (
+                        {APPLICATION_METHOD_OPTIONS.map(option => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
                           </SelectItem>

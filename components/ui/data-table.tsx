@@ -1,4 +1,4 @@
-import { Frame } from "@/components/ui/frame"
+import { Frame } from "@/components/ui/frame";
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import {
   ColumnDef,
   flexRender,
@@ -15,16 +15,16 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable
-} from "@tanstack/react-table"
-import { ArrowDownIcon, ArrowUpIcon } from "lucide-react"
-import { useState } from "react"
+} from "@tanstack/react-table";
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { useState } from "react";
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
@@ -37,7 +37,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     state: {
       sorting
     }
-  })
+  });
 
   return (
     <Frame className="w-full">
@@ -46,7 +46,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           {table.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map(header => {
-                const columnSize = header.column.getSize()
+                const columnSize = header.column.getSize();
 
                 return (
                   <TableHead
@@ -63,8 +63,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         onClick={header.column.getToggleSortingHandler()}
                         onKeyDown={e => {
                           if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault()
-                            header.column.getToggleSortingHandler()?.(e)
+                            e.preventDefault();
+                            header.column.getToggleSortingHandler()?.(e);
                           }
                         }}
                         role="button"
@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                       flexRender(header.column.columnDef.header, header.getContext())
                     )}
                   </TableHead>
-                )
+                );
               })}
             </TableRow>
           ))}
@@ -117,5 +117,5 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         </TableBody>
       </Table>
     </Frame>
-  )
+  );
 }

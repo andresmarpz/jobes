@@ -1,10 +1,10 @@
-import { ApplicationForm } from "@/features/applications/components/application-form"
-import { ApplicationsTable } from "@/features/applications/components/applications-table"
-import { Metadata } from "next"
+import { ApplicationForm } from "@/features/applications/components/application-form";
+import { ApplicationsTable } from "@/features/applications/components/applications-table";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Applications"
-}
+};
 
 export default function Applications() {
   return (
@@ -15,5 +15,5 @@ export default function Applications() {
       </div>
       <ApplicationsTable />
     </div>
-  )
+  );
 }

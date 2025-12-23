@@ -1,4 +1,4 @@
-import type { ApplicationStatus, ApplicationMethod } from "./types"
+import type { ApplicationStatus, ApplicationMethod } from "./types";
 
 export const APPLICATION_STATUSES: Record<ApplicationStatus, { label: string; className: string }> =
   {
@@ -26,7 +26,7 @@ export const APPLICATION_STATUSES: Record<ApplicationStatus, { label: string; cl
       label: "Withdrawn",
       className: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"
     }
-  }
+  };
 
 export const APPLICATION_METHODS: Record<ApplicationMethod, { label: string }> = {
   cold_email: { label: "Cold Email" },
@@ -35,12 +35,12 @@ export const APPLICATION_METHODS: Record<ApplicationMethod, { label: string }> =
   recruiter_outreach: { label: "Recruiter Outreach" },
   linkedin_easy_apply: { label: "LinkedIn Easy Apply" },
   other: { label: "Other" }
-}
+};
 
 export const APPLICATION_STATUS_OPTIONS = Object.entries(APPLICATION_STATUSES).map(
   ([value, { label }]) => ({ value, label })
-)
+);
 
 export const APPLICATION_METHOD_OPTIONS = Object.entries(APPLICATION_METHODS).map(
   ([value, { label }]) => ({ value, label })
-)
+);

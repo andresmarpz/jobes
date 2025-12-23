@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useCompanies } from "@/features/companies/hooks/use-companies"
-import { toolCategories } from "./tools/data"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { useCompanies } from "@/features/companies/hooks/use-companies";
+import { toolCategories } from "./tools/data";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const { companies, isLoading } = useCompanies()
+  const { companies, isLoading } = useCompanies();
 
-  const totalContacts = companies.reduce((sum, company) => sum + company.contacts.length, 0)
+  const totalContacts = companies.reduce((sum, company) => sum + company.contacts.length, 0);
 
   return (
     <div>
@@ -107,5 +107,5 @@ export default function Home() {
         </section>
       </div>
     </div>
-  )
+  );
 }

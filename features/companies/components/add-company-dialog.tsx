@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { CompanyDialog } from "./company-dialog"
-import { createCompany } from "@/features/companies/services/company-service"
-import type { CompanyFormData } from "@/features/companies/schemas"
-import { PlusIcon } from "lucide-react"
-import { useState } from "react"
+import { Button } from "@/components/ui/button";
+import { CompanyDialog } from "./company-dialog";
+import { createCompany } from "@/features/companies/services/company-service";
+import type { CompanyFormData } from "@/features/companies/schemas";
+import { PlusIcon } from "lucide-react";
+import { useState } from "react";
 
 export function AddCompanyDialog() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSuccess = (data: CompanyFormData) => {
-    createCompany(data)
-  }
+    createCompany(data);
+  };
 
   return (
     <>
@@ -22,5 +22,5 @@ export function AddCompanyDialog() {
       </Button>
       <CompanyDialog isOpen={isOpen} setIsOpen={setIsOpen} onSuccess={handleSuccess} />
     </>
-  )
+  );
 }

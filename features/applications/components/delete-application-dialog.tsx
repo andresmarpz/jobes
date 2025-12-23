@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,15 +8,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 type DeleteApplicationDialogProps = {
-  applicationPosition: string
-  isOpen: boolean
-  onOpenChange: (open: boolean) => void
-  onConfirm: () => Promise<void>
-}
+  applicationPosition: string;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  onConfirm: () => Promise<void>;
+};
 
 export function DeleteApplicationDialog({
   applicationPosition,
@@ -24,17 +24,17 @@ export function DeleteApplicationDialog({
   onOpenChange,
   onConfirm
 }: DeleteApplicationDialogProps) {
-  const [isDeleting, setIsDeleting] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleConfirm = async () => {
-    setIsDeleting(true)
+    setIsDeleting(true);
     try {
-      await onConfirm()
+      await onConfirm();
     } finally {
-      setIsDeleting(false)
-      onOpenChange(false)
+      setIsDeleting(false);
+      onOpenChange(false);
     }
-  }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -56,5 +56,5 @@ export function DeleteApplicationDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

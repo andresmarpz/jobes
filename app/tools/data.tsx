@@ -1,16 +1,16 @@
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 
 export interface Tool {
-  name: string
-  description: string
-  link: string
-  icon: ReactNode
+  name: string;
+  description: string;
+  link: string;
+  icon: ReactNode;
 }
 
 export interface ToolCategory {
-  name: string
-  description: string
-  tools: Tool[]
+  name: string;
+  description: string;
+  tools: Tool[];
 }
 
 export const toolCategories: ToolCategory[] = [
@@ -184,4 +184,4 @@ export const toolCategories: ToolCategory[] = [
       }
     ]
   }
-]
+];

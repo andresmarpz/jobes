@@ -1,6 +1,6 @@
-import type * as React from "react"
+import type * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Frame({
   className,
@@ -19,7 +19,7 @@ function Frame({
       data-slot="frame"
       {...props}
     />
-  )
+  );
 }
 
 function FramePanel({ className, ...props }: React.ComponentProps<"div">) {
@@ -32,7 +32,7 @@ function FramePanel({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="frame-panel"
       {...props}
     />
-  )
+  );
 }
 
 function FrameHeader({ className, ...props }: React.ComponentProps<"header">) {
@@ -42,7 +42,7 @@ function FrameHeader({ className, ...props }: React.ComponentProps<"header">) {
       data-slot="frame-panel-header"
       {...props}
     />
-  )
+  );
 }
 
 function FrameTitle({ className, ...props }: React.ComponentProps<"div">) {
@@ -52,7 +52,7 @@ function FrameTitle({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="frame-panel-title"
       {...props}
     />
-  )
+  );
 }
 
 function FrameDescription({ className, ...props }: React.ComponentProps<"div">) {
@@ -62,7 +62,7 @@ function FrameDescription({ className, ...props }: React.ComponentProps<"div">) 
       data-slot="frame-panel-description"
       {...props}
     />
-  )
+  );
 }
 
 function FrameFooter({ className, ...props }: React.ComponentProps<"footer">) {
@@ -72,7 +72,7 @@ function FrameFooter({ className, ...props }: React.ComponentProps<"footer">) {
       data-slot="frame-panel-footer"
       {...props}
     />
-  )
+  );
 }
 
-export { Frame, FramePanel, FrameHeader, FrameTitle, FrameDescription, FrameFooter }
+export { Frame, FramePanel, FrameHeader, FrameTitle, FrameDescription, FrameFooter };

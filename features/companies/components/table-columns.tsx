@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Company } from "@/features/companies/types"
-import { ColumnDef } from "@tanstack/react-table"
-import Link from "next/link"
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Company } from "@/features/companies/types";
+import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
 export const columns: ColumnDef<Company>[] = [
   {
@@ -15,14 +15,14 @@ export const columns: ColumnDef<Company>[] = [
     ),
     enableSorting: false,
     header: ({ table }) => {
-      const isAllSelected = table.getIsAllPageRowsSelected()
+      const isAllSelected = table.getIsAllPageRowsSelected();
       return (
         <Checkbox
           aria-label="Select all rows"
           checked={isAllSelected}
           onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         />
-      )
+      );
     },
     id: "select",
     size: 28
@@ -69,12 +69,12 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "contacts",
     header: "Contacts",
     cell: ({ row }) => {
-      const contacts = row.original.contacts
-      return <Badge variant="secondary">{contacts.length}</Badge>
+      const contacts = row.original.contacts;
+      return <Badge variant="secondary">{contacts.length}</Badge>;
     },
     sortingFn: (rowA, rowB) => {
-      return rowA.original.contacts.length - rowB.original.contacts.length
+      return rowA.original.contacts.length - rowB.original.contacts.length;
     },
     size: 60
   }
-]
+];

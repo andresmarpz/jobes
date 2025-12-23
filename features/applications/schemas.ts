@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const urlSchema = z.string().url().nullable().or(z.literal(""));
+const urlSchema = z.url({ message: "Invalid URL" }).nullable().or(z.literal(""));
 
 export const applicationStatusSchema = z.enum([
   "applied",
@@ -8,7 +8,7 @@ export const applicationStatusSchema = z.enum([
   "interview",
   "offer",
   "rejected",
-  "withdrawn",
+  "withdrawn"
 ]);
 
 export const applicationMethodSchema = z.enum([
@@ -17,19 +17,28 @@ export const applicationMethodSchema = z.enum([
   "ats_application",
   "recruiter_outreach",
   "linkedin_easy_apply",
-  "other",
+  "other"
 ]);
 
 export const applicationSchema = z.object({
   position: z.string().min(1, "Position is required"),
   companyName: z.string().min(1, "Company name is required"),
-  companyId: z.string().nullish().transform((val) => val ?? null),
+  companyId: z
+    .string()
+    .nullish()
+    .transform(val => val ?? null),
   status: applicationStatusSchema,
   applicationDate: z.date(),
-  jobUrl: urlSchema.transform((val) => (val === "" ? null : val)),
-  salary: z.string().nullish().transform((val) => val || null),
+  jobUrl: urlSchema.transform(val => (val === "" ? null : val)),
+  salary: z
+    .string()
+    .nullish()
+    .transform(val => val || null),
   method: applicationMethodSchema,
-  notes: z.string().nullish().transform((val) => val || null),
+  notes: z
+    .string()
+    .nullish()
+    .transform(val => val || null)
 });
 
 export type ApplicationFormData = z.output<typeof applicationSchema>;

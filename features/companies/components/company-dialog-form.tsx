@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -12,13 +12,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from "@/components/ui/form"
-import { companySchema, type CompanyFormData } from "../schemas"
+} from "@/components/ui/form";
+import { companySchema, type CompanyFormData } from "../schemas";
 
 interface Props {
-  defaultValues?: CompanyFormData
-  onSubmit: (data: CompanyFormData) => Promise<unknown>
-  onCancel: () => unknown
+  defaultValues?: CompanyFormData;
+  onSubmit: (data: CompanyFormData) => Promise<unknown>;
+  onCancel: () => unknown;
 }
 
 export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) {
@@ -30,7 +30,7 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
       websiteUrl: "",
       linkedinUrl: ""
     }
-  })
+  });
 
   return (
     <Form {...form}>
@@ -105,5 +105,5 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
         </div>
       </form>
     </Form>
-  )
+  );
 }

@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { ExternalLink, Pencil, Trash2, ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useCompany } from "../hooks/use-companies"
-import { ContactList } from "./contact-list"
-import { DeleteCompanyDialog } from "./delete-company-dialog"
-import { EditCompanyDialog } from "./edit-company-dialog"
-import { Frame } from "@/components/ui/frame"
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ExternalLink, Pencil, Trash2, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useCompany } from "../hooks/use-companies";
+import { ContactList } from "./contact-list";
+import { DeleteCompanyDialog } from "./delete-company-dialog";
+import { EditCompanyDialog } from "./edit-company-dialog";
+import { Frame } from "@/components/ui/frame";
 
 type CompanyDetailProps = {
-  companyId: string
-}
+  companyId: string;
+};
 
 export function CompanyDetail({ companyId }: CompanyDetailProps) {
-  const router = useRouter()
+  const router = useRouter();
   const { company, isLoading, error, deleteCompany, addContact, updateContact, removeContact } =
-    useCompany(companyId)
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+    useCompany(companyId);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
         <p className="text-muted-foreground">Loading company...</p>
       </div>
-    )
+    );
   }
 
   if (error || !company) {
@@ -42,13 +42,13 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
           </Link>
         </Button>
       </div>
-    )
+    );
   }
 
   const handleDelete = async () => {
-    await deleteCompany()
-    router.push("/companies")
-  }
+    await deleteCompany();
+    router.push("/companies");
+  };
 
   return (
     <div className="space-y-6">
@@ -137,5 +137,5 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
         setIsOpen={setIsEditDialogOpen}
       />
     </div>
-  )
+  );
 }

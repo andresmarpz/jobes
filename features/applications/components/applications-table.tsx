@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { DataTable } from "@/components/ui/data-table"
-import { useApplications } from "../hooks/use-applications"
-import { columns } from "@/features/applications/components/table-columns"
+import { DataTable } from "@/components/ui/data-table";
+import { useApplications } from "../hooks/use-applications";
+import { columns } from "@/features/applications/components/table-columns";
 
 export function ApplicationsTable() {
-  const { applications, isLoading, error } = useApplications()
+  const { applications, isLoading, error } = useApplications();
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
         <p className="text-muted-foreground">Loading applications...</p>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -20,7 +20,7 @@ export function ApplicationsTable() {
       <div className="flex items-center justify-center py-8">
         <p className="text-destructive">Error: {error}</p>
       </div>
-    )
+    );
   }
 
   if (applications.length === 0) {
@@ -30,8 +30,8 @@ export function ApplicationsTable() {
           No applications yet. Click &quot;Add Application&quot; to get started.
         </p>
       </div>
-    )
+    );
   }
 
-  return <DataTable columns={columns} data={applications} />
+  return <DataTable columns={columns} data={applications} />;
 }

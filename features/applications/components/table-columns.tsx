@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
-import type { Application } from "@/features/applications/types"
-import { APPLICATION_STATUSES, APPLICATION_METHODS } from "@/features/applications/constants"
-import { ColumnDef } from "@tanstack/react-table"
-import Link from "next/link"
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import type { Application } from "@/features/applications/types";
+import { APPLICATION_STATUSES, APPLICATION_METHODS } from "@/features/applications/constants";
+import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
 function formatDate(dateString: string): string {
-  const date = new Date(dateString)
+  const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric"
-  })
+  });
 }
 
 export const columns: ColumnDef<Application>[] = [
@@ -27,14 +27,14 @@ export const columns: ColumnDef<Application>[] = [
     ),
     enableSorting: false,
     header: ({ table }) => {
-      const isAllSelected = table.getIsAllPageRowsSelected()
+      const isAllSelected = table.getIsAllPageRowsSelected();
       return (
         <Checkbox
           aria-label="Select all rows"
           checked={isAllSelected}
           onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         />
-      )
+      );
     },
     id: "select",
     size: 28
@@ -61,9 +61,9 @@ export const columns: ColumnDef<Application>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.original.status
-      const statusConfig = APPLICATION_STATUSES[status]
-      return <Badge className={statusConfig.className}>{statusConfig.label}</Badge>
+      const status = row.original.status;
+      const statusConfig = APPLICATION_STATUSES[status];
+      return <Badge className={statusConfig.className}>{statusConfig.label}</Badge>;
     },
     size: 100
   },
@@ -79,7 +79,7 @@ export const columns: ColumnDef<Application>[] = [
       return (
         new Date(rowA.original.applicationDate).getTime() -
         new Date(rowB.original.applicationDate).getTime()
-      )
+      );
     },
     size: 100
   },
@@ -87,9 +87,9 @@ export const columns: ColumnDef<Application>[] = [
     accessorKey: "method",
     header: "Method",
     cell: ({ row }) => {
-      const method = row.original.method
-      const methodConfig = APPLICATION_METHODS[method]
-      return <div className="text-muted-foreground font-mono">{methodConfig.label}</div>
+      const method = row.original.method;
+      const methodConfig = APPLICATION_METHODS[method];
+      return <div className="text-muted-foreground font-mono">{methodConfig.label}</div>;
     },
     size: 150
   },
@@ -101,4 +101,4 @@ export const columns: ColumnDef<Application>[] = [
     ),
     size: 120
   }
-]
+];
