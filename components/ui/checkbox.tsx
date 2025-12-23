@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { CheckIcon } from "lucide-react";
+import { IconCheck } from "@tabler/icons-react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
         data-slot="checkbox-indicator"
         className="text-primary-foreground data-[state=checked]:bg-primary data-indeterminate:text-foreground absolute -inset-px flex items-center justify-center rounded-[4px] data-unchecked:hidden"
       >
-        <CheckIcon className="size-3.5" />
+        <IconCheck className="size-3.5" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

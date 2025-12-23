@@ -10,13 +10,7 @@ export function useAddContactMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      companyId,
-      input
-    }: {
-      companyId: string;
-      input: CreateContactInput;
-    }) => {
+    mutationFn: async ({ companyId, input }: { companyId: string; input: CreateContactInput }) => {
       const result = await Effect.runPromise(
         Effect.either(CompanyService.addContact(companyId, input))
       );
@@ -37,8 +31,8 @@ export function useAddContactMutation() {
         ...input
       };
 
-      queryClient.setQueryData<Company[]>(companyKeys.lists(), (old) =>
-        old?.map((company) =>
+      queryClient.setQueryData<Company[]>(companyKeys.lists(), old =>
+        old?.map(company =>
           company.id === companyId
             ? {
                 ...company,
@@ -49,7 +43,7 @@ export function useAddContactMutation() {
         )
       );
 
-      queryClient.setQueryData<Company>(companyKeys.detail(companyId), (old) =>
+      queryClient.setQueryData<Company>(companyKeys.detail(companyId), old =>
         old
           ? {
               ...old,
@@ -105,12 +99,10 @@ export function useUpdateContactMutation() {
       const previousCompany = queryClient.getQueryData<Company>(companyKeys.detail(companyId));
 
       const updateContacts = (contacts: Contact[]) =>
-        contacts.map((contact) =>
-          contact.id === contactId ? { ...contact, ...input } : contact
-        );
+        contacts.map(contact => (contact.id === contactId ? { ...contact, ...input } : contact));
 
-      queryClient.setQueryData<Company[]>(companyKeys.lists(), (old) =>
-        old?.map((company) =>
+      queryClient.setQueryData<Company[]>(companyKeys.lists(), old =>
+        old?.map(company =>
           company.id === companyId
             ? {
                 ...company,
@@ -121,7 +113,7 @@ export function useUpdateContactMutation() {
         )
       );
 
-      queryClient.setQueryData<Company>(companyKeys.detail(companyId), (old) =>
+      queryClient.setQueryData<Company>(companyKeys.detail(companyId), old =>
         old
           ? {
               ...old,
@@ -168,10 +160,10 @@ export function useRemoveContactMutation() {
       const previousCompany = queryClient.getQueryData<Company>(companyKeys.detail(companyId));
 
       const removeContact = (contacts: Contact[]) =>
-        contacts.filter((contact) => contact.id !== contactId);
+        contacts.filter(contact => contact.id !== contactId);
 
-      queryClient.setQueryData<Company[]>(companyKeys.lists(), (old) =>
-        old?.map((company) =>
+      queryClient.setQueryData<Company[]>(companyKeys.lists(), old =>
+        old?.map(company =>
           company.id === companyId
             ? {
                 ...company,
@@ -182,7 +174,7 @@ export function useRemoveContactMutation() {
         )
       );
 
-      queryClient.setQueryData<Company>(companyKeys.detail(companyId), (old) =>
+      queryClient.setQueryData<Company>(companyKeys.detail(companyId), old =>
         old
           ? {
               ...old,

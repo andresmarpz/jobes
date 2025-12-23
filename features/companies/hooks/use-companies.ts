@@ -53,7 +53,7 @@ export function useCompanies(initialSortConfig?: SortConfig) {
   }, [companies, sortConfig]);
 
   const toggleSort = useCallback((column: keyof Company) => {
-    setSortConfig((prev) => ({
+    setSortConfig(prev => ({
       column,
       direction: prev.column === column && prev.direction === "asc" ? "desc" : "asc"
     }));

@@ -28,7 +28,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
-import { PlusIcon } from "lucide-react";
+import { IconPlus } from "@tabler/icons-react";
 import { useApplications } from "@/features/applications/hooks/use-applications";
 import { useState } from "react";
 import { APPLICATION_STATUS_OPTIONS, APPLICATION_METHOD_OPTIONS } from "../constants";
@@ -70,7 +70,7 @@ export function ApplicationForm() {
     <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button>
-          <PlusIcon className="mr-2 h-3 w-3" />
+          <IconPlus className="mr-2 h-3 w-3" />
           Add Application
         </Button>
       </DialogTrigger>

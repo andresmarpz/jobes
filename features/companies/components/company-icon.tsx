@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2 } from "lucide-react";
+import { IconBuilding } from "@tabler/icons-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ export function CompanyIcon({ websiteUrl, size = 16 }: CompanyIconProps) {
   const [hasError, setHasError] = useState(false);
 
   if (!websiteUrl || hasError) {
-    return <Building2 className="text-muted-foreground shrink-0" size={size} />;
+    return <IconBuilding className="text-muted-foreground shrink-0" size={size} />;
   }
 
   // Extract domain from URL for favicon service
@@ -21,7 +21,7 @@ export function CompanyIcon({ websiteUrl, size = 16 }: CompanyIconProps) {
   try {
     domain = new URL(websiteUrl.startsWith("http") ? websiteUrl : `https://${websiteUrl}`).hostname;
   } catch {
-    return <Building2 className="text-muted-foreground shrink-0" size={size} />;
+    return <IconBuilding className="text-muted-foreground shrink-0" size={size} />;
   }
 
   const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=${size * 2}`;

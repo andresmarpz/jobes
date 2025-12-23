@@ -17,7 +17,7 @@ export function useCreateCompanyMutation() {
       }
       return result.right;
     },
-    onMutate: async (newCompany) => {
+    onMutate: async newCompany => {
       await queryClient.cancelQueries({ queryKey: companyKeys.lists() });
       const previousCompanies = queryClient.getQueryData<Company[]>(companyKeys.lists());
 
@@ -29,7 +29,7 @@ export function useCreateCompanyMutation() {
         updatedAt: new Date().toISOString()
       };
 
-      queryClient.setQueryData<Company[]>(companyKeys.lists(), (old) => [
+      queryClient.setQueryData<Company[]>(companyKeys.lists(), old => [
         ...(old ?? []),
         optimisticCompany
       ]);
@@ -67,15 +67,15 @@ export function useUpdateCompanyMutation() {
       const previousCompanies = queryClient.getQueryData<Company[]>(companyKeys.lists());
       const previousCompany = queryClient.getQueryData<Company>(companyKeys.detail(id));
 
-      queryClient.setQueryData<Company[]>(companyKeys.lists(), (old) =>
-        old?.map((company) =>
+      queryClient.setQueryData<Company[]>(companyKeys.lists(), old =>
+        old?.map(company =>
           company.id === id
             ? { ...company, ...input, updatedAt: new Date().toISOString() }
             : company
         )
       );
 
-      queryClient.setQueryData<Company>(companyKeys.detail(id), (old) =>
+      queryClient.setQueryData<Company>(companyKeys.detail(id), old =>
         old ? { ...old, ...input, updatedAt: new Date().toISOString() } : old
       );
 
@@ -106,13 +106,13 @@ export function useDeleteCompanyMutation() {
         throw new Error(result.left.message);
       }
     },
-    onMutate: async (id) => {
+    onMutate: async id => {
       await queryClient.cancelQueries({ queryKey: companyKeys.lists() });
 
       const previousCompanies = queryClient.getQueryData<Company[]>(companyKeys.lists());
 
-      queryClient.setQueryData<Company[]>(companyKeys.lists(), (old) =>
-        old?.filter((company) => company.id !== id)
+      queryClient.setQueryData<Company[]>(companyKeys.lists(), old =>
+        old?.filter(company => company.id !== id)
       );
 
       return { previousCompanies };
