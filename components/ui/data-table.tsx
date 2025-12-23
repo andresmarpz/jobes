@@ -16,7 +16,7 @@ import {
   SortingState,
   useReactTable
 } from "@tanstack/react-table";
-import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { IconArrowDown, IconArrowUp } from "@tabler/icons-react";
 import { useState } from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -73,10 +73,10 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                       {flexRender(header.column.columnDef.header, header.getContext())}
                       {{
                         asc: (
-                          <ArrowUpIcon aria-hidden="true" className="size-4 shrink-0 opacity-80" />
+                          <IconArrowUp aria-hidden="true" className="size-4 shrink-0 opacity-80" />
                         ),
                         desc: (
-                          <ArrowDownIcon
+                          <IconArrowDown
                             aria-hidden="true"
                             className="size-4 shrink-0 opacity-80"
                           />

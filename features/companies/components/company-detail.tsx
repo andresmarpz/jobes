@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ExternalLink, Pencil, Trash2, ArrowLeft, MoreHorizontal } from "lucide-react";
+import { IconExternalLink, IconPencil, IconTrash, IconArrowLeft, IconDots } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -43,7 +43,7 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
         <p className="text-destructive">{error ?? "Company not found"}</p>
         <Button asChild variant="outline">
           <Link href="/companies">
-            <ArrowLeft className="mr-2 h-4 w-4" />
+            <IconArrowLeft className="mr-2 h-4 w-4" />
             Back to Companies
           </Link>
         </Button>
@@ -61,23 +61,23 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
       <div className="flex items-center gap-4">
         <Button asChild variant="ghost" size="icon">
           <Link href="/companies" className="cursor-default">
-            <ArrowLeft className="h-4 w-4" />
+            <IconArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
         <h1 className="flex-1 text-3xl font-bold">{company.name}</h1>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon">
-              <MoreHorizontal className="h-4 w-4" />
+              <IconDots className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onSelect={() => setIsEditDialogOpen(true)}>
-              <Pencil className="mr-2 h-4 w-4" />
+              <IconPencil className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem variant="destructive" onSelect={() => setIsDeleteDialogOpen(true)}>
-              <Trash2 className="mr-2 h-4 w-4" />
+              <IconTrash className="mr-2 h-4 w-4" />
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -104,7 +104,7 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
                     rel="noopener noreferrer"
                     className="text-primary mt-1 inline-flex items-center gap-1 hover:underline"
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <IconExternalLink className="h-4 w-4" />
                     {company.websiteUrl}
                   </a>
                 ) : (
@@ -120,7 +120,7 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
                     rel="noopener noreferrer"
                     className="text-primary mt-1 inline-flex items-center gap-1 hover:underline"
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <IconExternalLink className="h-4 w-4" />
                     {company.linkedinUrl}
                   </a>
                 ) : (

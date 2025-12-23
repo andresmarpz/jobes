@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink, Pencil, Trash2, Plus } from "lucide-react";
+import { IconExternalLink, IconPencil, IconTrash, IconPlus } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -52,7 +52,7 @@ export function ContactList({ contacts, onAdd, onUpdate, onRemove }: ContactList
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
               <Button size="sm">
-                <Plus className="mr-2 h-4 w-4" />
+                <IconPlus className="mr-2 h-4 w-4" />
                 Add Contact
               </Button>
             </DialogTrigger>
@@ -87,7 +87,7 @@ export function ContactList({ contacts, onAdd, onUpdate, onRemove }: ContactList
                         rel="noopener noreferrer"
                         className="text-primary inline-flex items-center gap-1 text-sm hover:underline"
                       >
-                        <ExternalLink className="h-3 w-3" />
+                        <IconExternalLink className="h-3 w-3" />
                         LinkedIn
                       </a>
                     )}
@@ -99,7 +99,7 @@ export function ContactList({ contacts, onAdd, onUpdate, onRemove }: ContactList
                     >
                       <DialogTrigger asChild>
                         <Button variant="ghost" size="icon">
-                          <Pencil className="h-4 w-4" />
+                          <IconPencil className="h-4 w-4" />
                         </Button>
                       </DialogTrigger>
                       <DialogContent>
@@ -120,7 +120,7 @@ export function ContactList({ contacts, onAdd, onUpdate, onRemove }: ContactList
                       </DialogContent>
                     </Dialog>
                     <Button variant="ghost" size="icon" onClick={() => handleRemove(contact.id)}>
-                      <Trash2 className="h-4 w-4" />
+                      <IconTrash className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
