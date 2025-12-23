@@ -17,12 +17,12 @@ export default function TableHyperlinkCell({ url }: Props) {
         </Link>
       )}
     >
-      <div
+      <span
         data-is-url={!!url}
         className="text-muted-foreground data-[is-url=true]:text-primary truncate font-mono font-medium data-[is-url=false]:select-none"
       >
         {websiteUrl}
-      </div>
+      </span>
     </ConditionalRender>
   );
 }
