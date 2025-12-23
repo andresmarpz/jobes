@@ -18,7 +18,7 @@ export default function Header() {
       <nav>
         <div className="container mx-auto flex h-14 items-center justify-between px-4">
           <span className="flex items-center">
-            <Link href="/" className="mr-8 font-semibold">
+            <Link href="/about" className="mr-8 font-semibold">
               Jobes
             </Link>
             <div className="flex gap-6">
