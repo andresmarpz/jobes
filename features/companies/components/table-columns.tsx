@@ -35,7 +35,7 @@ export const columns: ColumnDef<Company>[] = [
     },
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
-        <div className="flex items-center gap-2 truncate py-3 font-mono font-medium">
+        <div className="flex items-center gap-2 truncate py-3 font-mono font-medium select-none">
           <CompanyIcon websiteUrl={row.original.websiteUrl} />
           {row.original.name}
         </div>
@@ -47,9 +47,11 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "description",
     header: "Description",
     cell: ({ row }) => (
-      <div className="text-muted-foreground truncate font-mono font-medium">
-        {row.original.description}
-      </div>
+      <Link href={`/companies/${row.original.id}`} className="cursor-default">
+        <div className="text-muted-foreground truncate py-3 font-mono font-medium select-none">
+          {row.original.description}
+        </div>
+      </Link>
     ),
     size: 120
   },
