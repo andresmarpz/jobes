@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -12,32 +12,32 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { applicationSchema, type ApplicationFormData } from "../schemas"
+} from "@/components/ui/select";
+import { applicationSchema, type ApplicationFormData } from "../schemas";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { PlusIcon } from "lucide-react"
-import { useApplications } from "@/features/applications/hooks/use-applications"
-import { useState } from "react"
+} from "@/components/ui/dialog";
+import { PlusIcon } from "lucide-react";
+import { useApplications } from "@/features/applications/hooks/use-applications";
+import { useState } from "react";
 import {
   APPLICATION_STATUS_OPTIONS,
   APPLICATION_METHOD_OPTIONS,
-} from "../constants"
+} from "../constants";
 
 export function ApplicationForm() {
-  const [isDialogOpen, setDialogOpen] = useState(false)
+  const [isDialogOpen, setDialogOpen] = useState(false);
 
   const form = useForm<ApplicationFormData>({
     resolver: zodResolver(applicationSchema),
@@ -52,20 +52,20 @@ export function ApplicationForm() {
       method: "ats_application",
       notes: "",
     },
-  })
+  });
 
-  const { createApplication } = useApplications()
+  const { createApplication } = useApplications();
 
   const handleSubmit = async (data: ApplicationFormData) => {
-    await createApplication(data)
-    form.reset()
-    setDialogOpen(false)
-  }
+    await createApplication(data);
+    form.reset();
+    setDialogOpen(false);
+  };
 
   const onCancel = () => {
-    form.reset()
-    setDialogOpen(false)
-  }
+    form.reset();
+    setDialogOpen(false);
+  };
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
@@ -245,5 +245,5 @@ export function ApplicationForm() {
         </Form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

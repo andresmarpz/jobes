@@ -116,7 +116,11 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  --card: color-mix(in srgb, var(--color-zinc-900) 80%, var(--color-zinc-950));
+  --card: color-mix(
+    in srgb,
+    var(--color-neutral-900) 80%,
+    var(--color-zinc-950)
+  );
   --card-foreground: var(--color-zinc-100);
   --popover: var(--color-zinc-900);
   --popover-foreground: var(--color-zinc-100);

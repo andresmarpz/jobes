@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import type { Contact, CreateContactInput } from "../types";
 import { ContactForm } from "./contact-form";
+import { Frame } from "@/components/ui/frame";
 
 type ContactListProps = {
   contacts: Contact[];
@@ -52,101 +53,103 @@ export function ContactList({
   };
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Contacts</CardTitle>
-        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-          <DialogTrigger asChild>
-            <Button size="sm">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Contact
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Contact</DialogTitle>
-            </DialogHeader>
-            <ContactForm
-              onSubmit={handleAdd}
-              onCancel={() => setIsAddDialogOpen(false)}
-            />
-          </DialogContent>
-        </Dialog>
-      </CardHeader>
-      <CardContent>
-        {contacts.length === 0 ? (
-          <p className="text-muted-foreground text-center py-4">
-            No contacts yet. Add your first contact.
-          </p>
-        ) : (
-          <div className="space-y-4">
-            {contacts.map((contact) => (
-              <div
-                key={contact.id}
-                className="flex items-start justify-between p-4 border rounded-lg"
-              >
-                <div className="space-y-1">
-                  <div className="font-medium">{contact.name}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {contact.role}
+    <Frame>
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Contacts</CardTitle>
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogTrigger asChild>
+              <Button size="sm">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Contact
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add Contact</DialogTitle>
+              </DialogHeader>
+              <ContactForm
+                onSubmit={handleAdd}
+                onCancel={() => setIsAddDialogOpen(false)}
+              />
+            </DialogContent>
+          </Dialog>
+        </CardHeader>
+        <CardContent>
+          {contacts.length === 0 ? (
+            <p className="text-muted-foreground text-center py-4">
+              No contacts yet. Add your first contact.
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {contacts.map((contact) => (
+                <div
+                  key={contact.id}
+                  className="flex items-start justify-between p-4 border rounded-lg"
+                >
+                  <div className="space-y-1">
+                    <div className="font-medium">{contact.name}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {contact.role}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {contact.country}
+                    </div>
+                    {contact.linkedinUrl && (
+                      <a
+                        href={contact.linkedinUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                      >
+                        <ExternalLink className="h-3 w-3" />
+                        LinkedIn
+                      </a>
+                    )}
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    {contact.country}
-                  </div>
-                  {contact.linkedinUrl && (
-                    <a
-                      href={contact.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                  <div className="flex gap-2">
+                    <Dialog
+                      open={editingContact?.id === contact.id}
+                      onOpenChange={(open) =>
+                        setEditingContact(open ? contact : null)
+                      }
                     >
-                      <ExternalLink className="h-3 w-3" />
-                      LinkedIn
-                    </a>
-                  )}
+                      <DialogTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Edit Contact</DialogTitle>
+                        </DialogHeader>
+                        <ContactForm
+                          defaultValues={{
+                            name: contact.name,
+                            role: contact.role,
+                            linkedinUrl: contact.linkedinUrl ?? "",
+                            country: contact.country,
+                          }}
+                          onSubmit={handleUpdate}
+                          onCancel={() => setEditingContact(null)}
+                          submitLabel="Save Changes"
+                        />
+                      </DialogContent>
+                    </Dialog>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleRemove(contact.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <Dialog
-                    open={editingContact?.id === contact.id}
-                    onOpenChange={(open) =>
-                      setEditingContact(open ? contact : null)
-                    }
-                  >
-                    <DialogTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Edit Contact</DialogTitle>
-                      </DialogHeader>
-                      <ContactForm
-                        defaultValues={{
-                          name: contact.name,
-                          role: contact.role,
-                          linkedinUrl: contact.linkedinUrl ?? "",
-                          country: contact.country,
-                        }}
-                        onSubmit={handleUpdate}
-                        onCancel={() => setEditingContact(null)}
-                        submitLabel="Save Changes"
-                      />
-                    </DialogContent>
-                  </Dialog>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleRemove(contact.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </Frame>
   );
 }

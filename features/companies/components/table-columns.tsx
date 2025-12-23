@@ -31,8 +31,8 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => (
-      <Link href={`/companies/${row.original.id}`}>
-        <div className="font-medium font-mono hover:underline">
+      <Link href={`/companies/${row.original.id}`} className="cursor-default">
+        <div className="font-medium font-mono hover:underline py-2">
           {row.original.name}
         </div>
       </Link>

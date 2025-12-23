@@ -89,7 +89,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
   return (
     <td
       className={cn(
-        "whitespace-nowrap p-2 align-middle has-[[role=checkbox]]:pe-0 *:[[role=checkbox]]:translate-y-0.5",
+        "whitespace-nowrap px-2 align-middle has-[[role=checkbox]]:pe-0 *:[[role=checkbox]]:translate-y-0.5",
         className
       )}
       data-slot="table-cell"

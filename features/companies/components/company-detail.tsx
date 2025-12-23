@@ -10,6 +10,7 @@ import { useCompany } from "../hooks/use-companies";
 import { ContactList } from "./contact-list";
 import { DeleteCompanyDialog } from "./delete-company-dialog";
 import { EditCompanyDialog } from "./edit-company-dialog";
+import { Frame } from "@/components/ui/frame";
 
 type CompanyDetailProps = {
   companyId: string;
@@ -22,7 +23,6 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
     isLoading,
     error,
     deleteCompany,
-    updateCompany,
     addContact,
     updateContact,
     removeContact,
@@ -61,7 +61,7 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Button asChild variant="ghost" size="icon">
-          <Link href="/companies">
+          <Link href="/companies" className="cursor-default">
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
@@ -79,57 +79,59 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
         </Button>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Company Information</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <h3 className="text-sm font-medium text-muted-foreground">
-              Description
-            </h3>
-            <p className="mt-1">{company.description}</p>
-          </div>
-          <div className="flex gap-8">
+      <Frame>
+        <Card>
+          <CardHeader>
+            <CardTitle>Company Information</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
             <div>
               <h3 className="text-sm font-medium text-muted-foreground">
-                Website
+                Description
               </h3>
-              {company.websiteUrl ? (
-                <a
-                  href={company.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 mt-1 text-primary hover:underline"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  {company.websiteUrl}
-                </a>
-              ) : (
-                <p className="mt-1 text-muted-foreground">Not provided</p>
-              )}
+              <p className="mt-1 text-foreground/90">{company.description}</p>
             </div>
-            <div>
-              <h3 className="text-sm font-medium text-muted-foreground">
-                LinkedIn
-              </h3>
-              {company.linkedinUrl ? (
-                <a
-                  href={company.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 mt-1 text-primary hover:underline"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  {company.linkedinUrl}
-                </a>
-              ) : (
-                <p className="mt-1 text-muted-foreground">Not provided</p>
-              )}
+            <div className="flex gap-8">
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">
+                  Website
+                </h3>
+                {company.websiteUrl ? (
+                  <a
+                    href={company.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 mt-1 text-primary hover:underline"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {company.websiteUrl}
+                  </a>
+                ) : (
+                  <p className="mt-1 text-foreground/90">-</p>
+                )}
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground">
+                  LinkedIn
+                </h3>
+                {company.linkedinUrl ? (
+                  <a
+                    href={company.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 mt-1 text-primary hover:underline"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {company.linkedinUrl}
+                  </a>
+                ) : (
+                  <p className="mt-1 text-foreground/90">-</p>
+                )}
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </Frame>
 
       <ContactList
         contacts={company.contacts}
@@ -148,8 +150,7 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
       <EditCompanyDialog
         company={company}
         isOpen={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
-        onSubmit={updateCompany}
+        setIsOpen={setIsEditDialogOpen}
       />
     </div>
   );
