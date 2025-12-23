@@ -35,7 +35,7 @@ export const columns: ColumnDef<Company>[] = [
     },
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
-        <div className="flex items-center gap-2 truncate py-3 font-mono font-medium select-none">
+        <div className="flex items-center gap-2 truncate py-3 font-mono font-medium">
           <CompanyIcon websiteUrl={row.original.websiteUrl} />
           {row.original.name}
         </div>
@@ -48,7 +48,7 @@ export const columns: ColumnDef<Company>[] = [
     header: "Description",
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
-        <div className="text-muted-foreground truncate py-3 font-mono font-medium select-none">
+        <div className="text-muted-foreground truncate py-3 font-mono font-medium">
           {row.original.description}
         </div>
       </Link>
@@ -72,11 +72,7 @@ export const columns: ColumnDef<Company>[] = [
     header: "Contacts",
     cell: ({ row }) => {
       const contacts = row.original.contacts;
-      return (
-        <Badge variant="secondary" className="select-none">
-          {contacts.length}
-        </Badge>
-      );
+      return <Badge variant="secondary">{contacts.length}</Badge>;
     },
     sortingFn: (rowA, rowB) => {
       return rowA.original.contacts.length - rowB.original.contacts.length;

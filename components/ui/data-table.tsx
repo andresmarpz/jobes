@@ -59,7 +59,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 <TableHead key={header.id}>
                   {header.isPlaceholder ? null : header.column.getCanSort() ? (
                     <button
-                      className="flex h-full w-full items-center justify-between gap-2 select-none"
+                      className="flex h-full w-full items-center justify-between gap-2"
                       onClick={header.column.getToggleSortingHandler()}
                       onKeyDown={e => {
                         if (e.key === "Enter" || e.key === " ") {

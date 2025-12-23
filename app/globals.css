@@ -148,5 +148,7 @@
   body {
     @apply bg-background text-foreground;
     text-rendering: optimizeLegibility;
+    user-select: none;
+    cursor: default;
   }
 }
