@@ -2,16 +2,17 @@
 
 import { Button } from "@/components/ui/button";
 import { CompanyDialog } from "./company-dialog";
-import { createCompany } from "@/features/companies/services/company-service";
+import { useCreateCompanyMutation } from "@/features/companies/queries";
 import type { CompanyFormData } from "@/features/companies/schemas";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export function AddCompanyDialog() {
   const [isOpen, setIsOpen] = useState(false);
+  const createCompanyMutation = useCreateCompanyMutation();
 
-  const handleSuccess = (data: CompanyFormData) => {
-    createCompany(data);
+  const handleSuccess = async (data: CompanyFormData) => {
+    await createCompanyMutation.mutateAsync(data);
   };
 
   return (
