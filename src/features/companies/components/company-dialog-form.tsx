@@ -57,7 +57,7 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
               <FormControl>
                 <Textarea
                   placeholder="What does this company do?"
-                  className="min-h-[100px]"
+                  className="h-32 max-h-32 min-h-[100px] resize-none"
                   {...field}
                 />
               </FormControl>
