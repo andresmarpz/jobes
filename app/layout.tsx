@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { QueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,34 +22,36 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} dark bg-background antialiased`}>
-        <nav className="border-b">
-          <div className="container mx-auto flex h-14 items-center px-4">
-            <Link href="/" className="mr-8 font-semibold">
-              Jobes
-            </Link>
-            <div className="flex gap-6">
-              <Link
-                href="/companies"
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-              >
-                Companies
+        <QueryProvider>
+          <nav className="border-b">
+            <div className="container mx-auto flex h-14 items-center px-4">
+              <Link href="/" className="mr-8 font-semibold">
+                Jobes
               </Link>
-              <Link
-                href="/applications"
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-              >
-                Applications
-              </Link>
-              <Link
-                href="/tools"
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-              >
-                Tools
-              </Link>
+              <div className="flex gap-6">
+                <Link
+                  href="/companies"
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                >
+                  Companies
+                </Link>
+                <Link
+                  href="/applications"
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                >
+                  Applications
+                </Link>
+                <Link
+                  href="/tools"
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                >
+                  Tools
+                </Link>
+              </div>
             </div>
-          </div>
-        </nav>
-        <main className="container mx-auto px-4 py-8">{children}</main>
+          </nav>
+          <main className="container mx-auto px-4 py-8">{children}</main>
+        </QueryProvider>
       </body>
     </html>
   );
