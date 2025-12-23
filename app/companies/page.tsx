@@ -1,19 +1,19 @@
-import { AddCompanyDialog } from "@/features/companies/components/add-company-dialog";
-import { CompaniesTable } from "@/features/companies/components/companies-table";
-import { Metadata } from "next";
+import { AddCompanyDialog } from "@/features/companies/components/add-company-dialog"
+import { CompaniesTable } from "@/features/companies/components/companies-table"
+import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Companies",
-};
+  title: "Companies"
+}
 
 export default function Companies() {
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Companies</h1>
         <AddCompanyDialog />
       </div>
       <CompaniesTable />
     </div>
-  );
+  )
 }

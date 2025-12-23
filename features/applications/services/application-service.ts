@@ -4,13 +4,9 @@ import type {
   CreateApplicationInput,
   UpdateApplicationInput,
   ApplicationStatus,
-  StatusHistoryEntry,
+  StatusHistoryEntry
 } from "../types"
-import {
-  getApplicationsFromStorage,
-  saveApplicationsToStorage,
-  StorageError,
-} from "./storage"
+import { getApplicationsFromStorage, saveApplicationsToStorage, StorageError } from "./storage"
 
 export class ApplicationNotFoundError extends Error {
   readonly _tag = "ApplicationNotFoundError"
@@ -25,7 +21,7 @@ export const getApplications = getApplicationsFromStorage
 export const getApplication = (id: string) =>
   Effect.gen(function* () {
     const applications = yield* getApplicationsFromStorage
-    const application = applications.find((a) => a.id === id)
+    const application = applications.find(a => a.id === id)
     if (!application) {
       return yield* Effect.fail(new ApplicationNotFoundError(id))
     }
@@ -41,7 +37,7 @@ export const createApplication = (input: CreateApplicationInput) =>
       id: crypto.randomUUID(),
       status: input.status,
       note: null,
-      changedAt: now,
+      changedAt: now
     }
 
     const newApplication: Application = {
@@ -49,7 +45,7 @@ export const createApplication = (input: CreateApplicationInput) =>
       ...input,
       statusHistory: [initialHistory],
       createdAt: now,
-      updatedAt: now,
+      updatedAt: now
     }
     yield* saveApplicationsToStorage([...applications, newApplication])
     return newApplication
@@ -58,7 +54,7 @@ export const createApplication = (input: CreateApplicationInput) =>
 export const updateApplication = (id: string, input: UpdateApplicationInput) =>
   Effect.gen(function* () {
     const applications = yield* getApplicationsFromStorage
-    const index = applications.findIndex((a) => a.id === id)
+    const index = applications.findIndex(a => a.id === id)
     if (index === -1) {
       return yield* Effect.fail(new ApplicationNotFoundError(id))
     }
@@ -73,7 +69,7 @@ export const updateApplication = (id: string, input: UpdateApplicationInput) =>
         id: crypto.randomUUID(),
         status: input.status,
         note: null,
-        changedAt: now,
+        changedAt: now
       }
       statusHistory = [...statusHistory, newHistoryEntry]
     }
@@ -82,7 +78,7 @@ export const updateApplication = (id: string, input: UpdateApplicationInput) =>
       ...current,
       ...input,
       statusHistory,
-      updatedAt: now,
+      updatedAt: now
     }
     const updatedApplications = [...applications]
     updatedApplications[index] = updatedApplication
@@ -90,14 +86,10 @@ export const updateApplication = (id: string, input: UpdateApplicationInput) =>
     return updatedApplication
   })
 
-export const updateStatus = (
-  id: string,
-  status: ApplicationStatus,
-  note?: string
-) =>
+export const updateStatus = (id: string, status: ApplicationStatus, note?: string) =>
   Effect.gen(function* () {
     const applications = yield* getApplicationsFromStorage
-    const index = applications.findIndex((a) => a.id === id)
+    const index = applications.findIndex(a => a.id === id)
     if (index === -1) {
       return yield* Effect.fail(new ApplicationNotFoundError(id))
     }
@@ -107,14 +99,14 @@ export const updateStatus = (
       id: crypto.randomUUID(),
       status,
       note: note || null,
-      changedAt: now,
+      changedAt: now
     }
 
     const updatedApplication: Application = {
       ...applications[index],
       status,
       statusHistory: [...applications[index].statusHistory, newHistoryEntry],
-      updatedAt: now,
+      updatedAt: now
     }
     const updatedApplications = [...applications]
     updatedApplications[index] = updatedApplication
@@ -125,11 +117,11 @@ export const updateStatus = (
 export const deleteApplication = (id: string) =>
   Effect.gen(function* () {
     const applications = yield* getApplicationsFromStorage
-    const index = applications.findIndex((a) => a.id === id)
+    const index = applications.findIndex(a => a.id === id)
     if (index === -1) {
       return yield* Effect.fail(new ApplicationNotFoundError(id))
     }
-    const updatedApplications = applications.filter((a) => a.id !== id)
+    const updatedApplications = applications.filter(a => a.id !== id)
     yield* saveApplicationsToStorage(updatedApplications)
   })
 

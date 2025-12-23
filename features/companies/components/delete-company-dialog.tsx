@@ -7,7 +7,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 
@@ -22,7 +22,7 @@ export function DeleteCompanyDialog({
   companyName,
   isOpen,
   onOpenChange,
-  onConfirm,
+  onConfirm
 }: DeleteCompanyDialogProps) {
   const [isDeleting, setIsDeleting] = useState(false)
 
@@ -42,24 +42,15 @@ export function DeleteCompanyDialog({
         <DialogHeader>
           <DialogTitle>Delete Company</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete &quot;{companyName}&quot;? This
-            action cannot be undone and will also delete all associated
-            contacts.
+            Are you sure you want to delete &quot;{companyName}&quot;? This action cannot be undone
+            and will also delete all associated contacts.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={isDeleting}
-          >
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isDeleting}>
             Cancel
           </Button>
-          <Button
-            variant="destructive"
-            onClick={handleConfirm}
-            disabled={isDeleting}
-          >
+          <Button variant="destructive" onClick={handleConfirm} disabled={isDeleting}>
             {isDeleting ? "Deleting..." : "Delete"}
           </Button>
         </DialogFooter>

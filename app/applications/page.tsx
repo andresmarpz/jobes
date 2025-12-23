@@ -3,13 +3,13 @@ import { ApplicationsTable } from "@/features/applications/components/applicatio
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Applications",
+  title: "Applications"
 }
 
 export default function Applications() {
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Applications</h1>
         <ApplicationForm />
       </div>

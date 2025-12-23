@@ -10,7 +10,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form"
 import { contactSchema, type ContactFormData } from "../schemas"
 import type { CreateContactInput } from "../types"
@@ -31,7 +31,7 @@ export function ContactForm({
   defaultValues,
   onSubmit,
   onCancel,
-  submitLabel = "Add Contact",
+  submitLabel = "Add Contact"
 }: ContactFormProps) {
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -39,8 +39,8 @@ export function ContactForm({
       name: "",
       role: "",
       linkedinUrl: "",
-      country: "",
-    },
+      country: ""
+    }
   })
 
   const handleSubmit = async (data: ContactFormData) => {
@@ -48,7 +48,7 @@ export function ContactForm({
       name: data.name,
       role: data.role,
       linkedinUrl: data.linkedinUrl,
-      country: data.country,
+      country: data.country
     })
   }
 

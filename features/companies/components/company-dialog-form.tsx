@@ -1,40 +1,36 @@
-"use client";
+"use client"
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { companySchema, type CompanyFormData } from "../schemas";
+  FormMessage
+} from "@/components/ui/form"
+import { companySchema, type CompanyFormData } from "../schemas"
 
 interface Props {
-  defaultValues?: CompanyFormData;
-  onSubmit: (data: CompanyFormData) => Promise<unknown>;
-  onCancel: () => unknown;
+  defaultValues?: CompanyFormData
+  onSubmit: (data: CompanyFormData) => Promise<unknown>
+  onCancel: () => unknown
 }
 
-export function CompanyDialogForm({
-  defaultValues,
-  onSubmit,
-  onCancel,
-}: Props) {
+export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) {
   const form = useForm<CompanyFormData>({
     resolver: zodResolver(companySchema),
     defaultValues: defaultValues ?? {
       name: "",
       description: "",
       websiteUrl: "",
-      linkedinUrl: "",
-    },
-  });
+      linkedinUrl: ""
+    }
+  })
 
   return (
     <Form {...form}>
@@ -76,11 +72,7 @@ export function CompanyDialogForm({
             <FormItem>
               <FormLabel>Website URL (optional)</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="https://example.com"
-                  {...field}
-                  value={field.value ?? ""}
-                />
+                <Input placeholder="https://example.com" {...field} value={field.value ?? ""} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -113,5 +105,5 @@ export function CompanyDialogForm({
         </div>
       </form>
     </Form>
-  );
+  )
 }

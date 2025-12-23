@@ -1,56 +1,48 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { ExternalLink, Pencil, Trash2, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react"
+import { ExternalLink, Pencil, Trash2, Plus } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import type { Contact, CreateContactInput } from "../types";
-import { ContactForm } from "./contact-form";
-import { Frame } from "@/components/ui/frame";
+  DialogTrigger
+} from "@/components/ui/dialog"
+import type { Contact, CreateContactInput } from "../types"
+import { ContactForm } from "./contact-form"
+import { Frame } from "@/components/ui/frame"
 
 type ContactListProps = {
-  contacts: Contact[];
-  onAdd: (input: CreateContactInput) => Promise<unknown>;
-  onUpdate: (
-    id: string,
-    input: Partial<CreateContactInput>
-  ) => Promise<unknown>;
-  onRemove: (id: string) => Promise<void>;
-};
+  contacts: Contact[]
+  onAdd: (input: CreateContactInput) => Promise<unknown>
+  onUpdate: (id: string, input: Partial<CreateContactInput>) => Promise<unknown>
+  onRemove: (id: string) => Promise<void>
+}
 
-export function ContactList({
-  contacts,
-  onAdd,
-  onUpdate,
-  onRemove,
-}: ContactListProps) {
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [editingContact, setEditingContact] = useState<Contact | null>(null);
+export function ContactList({ contacts, onAdd, onUpdate, onRemove }: ContactListProps) {
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+  const [editingContact, setEditingContact] = useState<Contact | null>(null)
 
   const handleAdd = async (data: CreateContactInput) => {
-    await onAdd(data);
-    setIsAddDialogOpen(false);
-  };
+    await onAdd(data)
+    setIsAddDialogOpen(false)
+  }
 
   const handleUpdate = async (data: CreateContactInput) => {
     if (editingContact) {
-      await onUpdate(editingContact.id, data);
-      setEditingContact(null);
+      await onUpdate(editingContact.id, data)
+      setEditingContact(null)
     }
-  };
+  }
 
   const handleRemove = async (id: string) => {
     if (confirm("Are you sure you want to remove this contact?")) {
-      await onRemove(id);
+      await onRemove(id)
     }
-  };
+  }
 
   return (
     <Frame>
@@ -60,7 +52,7 @@ export function ContactList({
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
               <Button size="sm">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 Add Contact
               </Button>
             </DialogTrigger>
@@ -68,39 +60,32 @@ export function ContactList({
               <DialogHeader>
                 <DialogTitle>Add Contact</DialogTitle>
               </DialogHeader>
-              <ContactForm
-                onSubmit={handleAdd}
-                onCancel={() => setIsAddDialogOpen(false)}
-              />
+              <ContactForm onSubmit={handleAdd} onCancel={() => setIsAddDialogOpen(false)} />
             </DialogContent>
           </Dialog>
         </CardHeader>
         <CardContent>
           {contacts.length === 0 ? (
-            <p className="text-muted-foreground text-center py-4">
+            <p className="text-muted-foreground py-4 text-center">
               No contacts yet. Add your first contact.
             </p>
           ) : (
             <div className="space-y-4">
-              {contacts.map((contact) => (
+              {contacts.map(contact => (
                 <div
                   key={contact.id}
-                  className="flex items-start justify-between p-4 border rounded-lg"
+                  className="flex items-start justify-between rounded-lg border p-4"
                 >
                   <div className="space-y-1">
                     <div className="font-medium">{contact.name}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {contact.role}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {contact.country}
-                    </div>
+                    <div className="text-muted-foreground text-sm">{contact.role}</div>
+                    <div className="text-muted-foreground text-sm">{contact.country}</div>
                     {contact.linkedinUrl && (
                       <a
                         href={contact.linkedinUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                        className="text-primary inline-flex items-center gap-1 text-sm hover:underline"
                       >
                         <ExternalLink className="h-3 w-3" />
                         LinkedIn
@@ -110,9 +95,7 @@ export function ContactList({
                   <div className="flex gap-2">
                     <Dialog
                       open={editingContact?.id === contact.id}
-                      onOpenChange={(open) =>
-                        setEditingContact(open ? contact : null)
-                      }
+                      onOpenChange={open => setEditingContact(open ? contact : null)}
                     >
                       <DialogTrigger asChild>
                         <Button variant="ghost" size="icon">
@@ -128,7 +111,7 @@ export function ContactList({
                             name: contact.name,
                             role: contact.role,
                             linkedinUrl: contact.linkedinUrl ?? "",
-                            country: contact.country,
+                            country: contact.country
                           }}
                           onSubmit={handleUpdate}
                           onCancel={() => setEditingContact(null)}
@@ -136,11 +119,7 @@ export function ContactList({
                         />
                       </DialogContent>
                     </Dialog>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleRemove(contact.id)}
-                    >
+                    <Button variant="ghost" size="icon" onClick={() => handleRemove(contact.id)}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -151,5 +130,5 @@ export function ContactList({
         </CardContent>
       </Card>
     </Frame>
-  );
+  )
 }

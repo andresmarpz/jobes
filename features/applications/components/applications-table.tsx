@@ -25,7 +25,7 @@ export function ApplicationsTable() {
 
   if (applications.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-8 gap-4">
+      <div className="flex flex-col items-center justify-center gap-4 py-8">
         <p className="text-muted-foreground">
           No applications yet. Click &quot;Add Application&quot; to get started.
         </p>

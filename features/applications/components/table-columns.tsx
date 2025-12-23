@@ -12,7 +12,7 @@ function formatDate(dateString: string): string {
   return date.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
-    year: "numeric",
+    year: "numeric"
   })
 }
 
@@ -22,7 +22,7 @@ export const columns: ColumnDef<Application>[] = [
       <Checkbox
         aria-label="Select row"
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={value => row.toggleSelected(!!value)}
       />
     ),
     enableSorting: false,
@@ -32,34 +32,30 @@ export const columns: ColumnDef<Application>[] = [
         <Checkbox
           aria-label="Select all rows"
           checked={isAllSelected}
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         />
       )
     },
     id: "select",
-    size: 28,
+    size: 28
   },
   {
     accessorKey: "position",
     header: "Position",
     cell: ({ row }) => (
       <Link href={`/applications/${row.original.id}`}>
-        <div className="font-medium font-mono hover:underline">
-          {row.original.position}
-        </div>
+        <div className="font-mono font-medium hover:underline">{row.original.position}</div>
       </Link>
     ),
-    size: 200,
+    size: 200
   },
   {
     accessorKey: "companyName",
     header: "Company",
     cell: ({ row }) => (
-      <div className="font-medium font-mono text-muted-foreground">
-        {row.original.companyName}
-      </div>
+      <div className="text-muted-foreground font-mono font-medium">{row.original.companyName}</div>
     ),
-    size: 150,
+    size: 150
   },
   {
     accessorKey: "status",
@@ -69,13 +65,13 @@ export const columns: ColumnDef<Application>[] = [
       const statusConfig = APPLICATION_STATUSES[status]
       return <Badge className={statusConfig.className}>{statusConfig.label}</Badge>
     },
-    size: 100,
+    size: 100
   },
   {
     accessorKey: "applicationDate",
     header: "Applied",
     cell: ({ row }) => (
-      <div className="font-mono text-muted-foreground">
+      <div className="text-muted-foreground font-mono">
         {formatDate(row.original.applicationDate)}
       </div>
     ),
@@ -85,7 +81,7 @@ export const columns: ColumnDef<Application>[] = [
         new Date(rowB.original.applicationDate).getTime()
       )
     },
-    size: 100,
+    size: 100
   },
   {
     accessorKey: "method",
@@ -93,22 +89,16 @@ export const columns: ColumnDef<Application>[] = [
     cell: ({ row }) => {
       const method = row.original.method
       const methodConfig = APPLICATION_METHODS[method]
-      return (
-        <div className="font-mono text-muted-foreground">
-          {methodConfig.label}
-        </div>
-      )
+      return <div className="text-muted-foreground font-mono">{methodConfig.label}</div>
     },
-    size: 150,
+    size: 150
   },
   {
     accessorKey: "salary",
     header: "Salary",
     cell: ({ row }) => (
-      <div className="font-mono text-muted-foreground">
-        {row.original.salary || "-"}
-      </div>
+      <div className="text-muted-foreground font-mono">{row.original.salary || "-"}</div>
     ),
-    size: 120,
-  },
+    size: 120
+  }
 ]

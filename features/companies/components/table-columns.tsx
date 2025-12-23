@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Company } from "@/features/companies/types";
-import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
+import { Badge } from "@/components/ui/badge"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Company } from "@/features/companies/types"
+import { ColumnDef } from "@tanstack/react-table"
+import Link from "next/link"
 
 export const columns: ColumnDef<Company>[] = [
   {
@@ -10,75 +10,71 @@ export const columns: ColumnDef<Company>[] = [
       <Checkbox
         aria-label="Select row"
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={value => row.toggleSelected(!!value)}
       />
     ),
     enableSorting: false,
     header: ({ table }) => {
-      const isAllSelected = table.getIsAllPageRowsSelected();
+      const isAllSelected = table.getIsAllPageRowsSelected()
       return (
         <Checkbox
           aria-label="Select all rows"
           checked={isAllSelected}
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         />
-      );
+      )
     },
     id: "select",
-    size: 28,
+    size: 28
   },
   {
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => (
       <Link href={`/companies/${row.original.id}`} className="cursor-default">
-        <div className="font-medium font-mono hover:underline py-2">
-          {row.original.name}
-        </div>
+        <div className="py-2 font-mono font-medium hover:underline">{row.original.name}</div>
       </Link>
     ),
-    size: 80,
+    size: 80
   },
   {
     accessorKey: "description",
     header: "Description",
     cell: ({ row }) => (
-      <div className="font-medium font-mono text-muted-foreground">
-        {row.original.description}
-      </div>
+      <div className="text-muted-foreground font-mono font-medium">{row.original.description}</div>
     ),
-    size: 120,
+    size: 120
   },
   {
     accessorKey: "websiteUrl",
     header: "Website",
     cell: ({ row }) => (
-      <div className="font-medium font-mono text-muted-foreground truncate">
+      <div className="text-muted-foreground truncate font-mono font-medium">
         {row.original.websiteUrl || "-"}
       </div>
     ),
-    size: 100,
+    size: 100
   },
   {
     accessorKey: "linkedinUrl",
     header: "LinkedIn",
     cell: ({ row }) => (
-      <div className="font-medium font-mono text-muted-foreground truncate">
+      <div className="text-muted-foreground truncate font-mono font-medium">
         {row.original.linkedinUrl || "-"}
       </div>
     ),
-    size: 100,
+    size: 100
   },
   {
     accessorKey: "contacts",
     header: "Contacts",
     cell: ({ row }) => {
-      const contacts = row.original.contacts;
-      return <Badge variant="secondary">{contacts.length}</Badge>;
+      const contacts = row.original.contacts
+      return <Badge variant="secondary">{contacts.length}</Badge>
     },
     sortingFn: (rowA, rowB) => {
-      return rowA.original.contacts.length - rowB.original.contacts.length;
+      return rowA.original.contacts.length - rowB.original.contacts.length
     },
-    size: 60,
-  },
-];
+    size: 60
+  }
+]

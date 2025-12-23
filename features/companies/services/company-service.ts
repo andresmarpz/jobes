@@ -4,13 +4,9 @@ import type {
   CreateCompanyInput,
   UpdateCompanyInput,
   CreateContactInput,
-  Contact,
+  Contact
 } from "../types"
-import {
-  getCompaniesFromStorage,
-  saveCompaniesToStorage,
-  StorageError,
-} from "./storage"
+import { getCompaniesFromStorage, saveCompaniesToStorage, StorageError } from "./storage"
 
 export class CompanyNotFoundError extends Error {
   readonly _tag = "CompanyNotFoundError"
@@ -33,7 +29,7 @@ export const getCompanies = getCompaniesFromStorage
 export const getCompany = (id: string) =>
   Effect.gen(function* () {
     const companies = yield* getCompaniesFromStorage
-    const company = companies.find((c) => c.id === id)
+    const company = companies.find(c => c.id === id)
     if (!company) {
       return yield* Effect.fail(new CompanyNotFoundError(id))
     }
@@ -49,7 +45,7 @@ export const createCompany = (input: CreateCompanyInput) =>
       ...input,
       contacts: [],
       createdAt: now,
-      updatedAt: now,
+      updatedAt: now
     }
     yield* saveCompaniesToStorage([...companies, newCompany])
     return newCompany
@@ -58,14 +54,14 @@ export const createCompany = (input: CreateCompanyInput) =>
 export const updateCompany = (id: string, input: UpdateCompanyInput) =>
   Effect.gen(function* () {
     const companies = yield* getCompaniesFromStorage
-    const index = companies.findIndex((c) => c.id === id)
+    const index = companies.findIndex(c => c.id === id)
     if (index === -1) {
       return yield* Effect.fail(new CompanyNotFoundError(id))
     }
     const updatedCompany: Company = {
       ...companies[index],
       ...input,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     }
     const updatedCompanies = [...companies]
     updatedCompanies[index] = updatedCompany
@@ -76,29 +72,29 @@ export const updateCompany = (id: string, input: UpdateCompanyInput) =>
 export const deleteCompany = (id: string) =>
   Effect.gen(function* () {
     const companies = yield* getCompaniesFromStorage
-    const index = companies.findIndex((c) => c.id === id)
+    const index = companies.findIndex(c => c.id === id)
     if (index === -1) {
       return yield* Effect.fail(new CompanyNotFoundError(id))
     }
-    const updatedCompanies = companies.filter((c) => c.id !== id)
+    const updatedCompanies = companies.filter(c => c.id !== id)
     yield* saveCompaniesToStorage(updatedCompanies)
   })
 
 export const addContact = (companyId: string, input: CreateContactInput) =>
   Effect.gen(function* () {
     const companies = yield* getCompaniesFromStorage
-    const index = companies.findIndex((c) => c.id === companyId)
+    const index = companies.findIndex(c => c.id === companyId)
     if (index === -1) {
       return yield* Effect.fail(new CompanyNotFoundError(companyId))
     }
     const newContact: Contact = {
       id: crypto.randomUUID(),
-      ...input,
+      ...input
     }
     const updatedCompany: Company = {
       ...companies[index],
       contacts: [...companies[index].contacts, newContact],
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     }
     const updatedCompanies = [...companies]
     updatedCompanies[index] = updatedCompany
@@ -113,25 +109,25 @@ export const updateContact = (
 ) =>
   Effect.gen(function* () {
     const companies = yield* getCompaniesFromStorage
-    const companyIndex = companies.findIndex((c) => c.id === companyId)
+    const companyIndex = companies.findIndex(c => c.id === companyId)
     if (companyIndex === -1) {
       return yield* Effect.fail(new CompanyNotFoundError(companyId))
     }
     const company = companies[companyIndex]
-    const contactIndex = company.contacts.findIndex((c) => c.id === contactId)
+    const contactIndex = company.contacts.findIndex(c => c.id === contactId)
     if (contactIndex === -1) {
       return yield* Effect.fail(new ContactNotFoundError(contactId))
     }
     const updatedContact: Contact = {
       ...company.contacts[contactIndex],
-      ...input,
+      ...input
     }
     const updatedContacts = [...company.contacts]
     updatedContacts[contactIndex] = updatedContact
     const updatedCompany: Company = {
       ...company,
       contacts: updatedContacts,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     }
     const updatedCompanies = [...companies]
     updatedCompanies[companyIndex] = updatedCompany
@@ -142,27 +138,24 @@ export const updateContact = (
 export const removeContact = (companyId: string, contactId: string) =>
   Effect.gen(function* () {
     const companies = yield* getCompaniesFromStorage
-    const companyIndex = companies.findIndex((c) => c.id === companyId)
+    const companyIndex = companies.findIndex(c => c.id === companyId)
     if (companyIndex === -1) {
       return yield* Effect.fail(new CompanyNotFoundError(companyId))
     }
     const company = companies[companyIndex]
-    const contactIndex = company.contacts.findIndex((c) => c.id === contactId)
+    const contactIndex = company.contacts.findIndex(c => c.id === contactId)
     if (contactIndex === -1) {
       return yield* Effect.fail(new ContactNotFoundError(contactId))
     }
-    const updatedContacts = company.contacts.filter((c) => c.id !== contactId)
+    const updatedContacts = company.contacts.filter(c => c.id !== contactId)
     const updatedCompany: Company = {
       ...company,
       contacts: updatedContacts,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     }
     const updatedCompanies = [...companies]
     updatedCompanies[companyIndex] = updatedCompany
     yield* saveCompaniesToStorage(updatedCompanies)
   })
 
-export type CompanyServiceError =
-  | StorageError
-  | CompanyNotFoundError
-  | ContactNotFoundError
+export type CompanyServiceError = StorageError | CompanyNotFoundError | ContactNotFoundError

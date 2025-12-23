@@ -8,7 +8,7 @@ export const applicationStatusSchema = z.enum([
   "interview",
   "offer",
   "rejected",
-  "withdrawn",
+  "withdrawn"
 ])
 
 export const applicationMethodSchema = z.enum([
@@ -17,7 +17,7 @@ export const applicationMethodSchema = z.enum([
   "ats_application",
   "recruiter_outreach",
   "linkedin_easy_apply",
-  "other",
+  "other"
 ])
 
 export const applicationSchema = z.object({
@@ -26,18 +26,18 @@ export const applicationSchema = z.object({
   companyId: z.string().nullable().optional().default(null),
   status: applicationStatusSchema,
   applicationDate: z.string().min(1, "Application date is required"),
-  jobUrl: urlSchema.transform((val) => (val === "" ? null : val)),
+  jobUrl: urlSchema.transform(val => (val === "" ? null : val)),
   salary: z
     .string()
     .nullable()
     .optional()
-    .transform((val) => val || null),
+    .transform(val => val || null),
   method: applicationMethodSchema,
   notes: z
     .string()
     .nullable()
     .optional()
-    .transform((val) => val || null),
+    .transform(val => val || null)
 })
 
 export type ApplicationFormData = z.infer<typeof applicationSchema>
