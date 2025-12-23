@@ -3,7 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { IconExternalLink, IconPencil, IconTrash, IconArrowLeft, IconDots } from "@tabler/icons-react";
+import {
+  IconExternalLink,
+  IconPencil,
+  IconTrash,
+  IconArrowLeft,
+  IconDots
+} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
