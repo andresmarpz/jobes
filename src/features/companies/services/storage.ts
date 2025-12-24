@@ -32,7 +32,7 @@ const DEFAULT_COMPANIES: Company[] = [
       "Your personal job tracker dashboard. Manage job opportunities, professional contacts, and application progress all in one place.",
     websiteUrl: "https://jobes.app",
     linkedinUrl: null,
-    iconUrls: ["https://jobes.app/favicon.ico"],
+    iconUrls: ["https://jobes.app/favicon.png"],
     contacts: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
