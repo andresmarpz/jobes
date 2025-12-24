@@ -4,6 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --text-xsm: 0.8125rem;
+  --font-weight-book: 450;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -146,7 +149,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-book text-sm;
     text-rendering: optimizeLegibility;
     user-select: none;
     cursor: default;
