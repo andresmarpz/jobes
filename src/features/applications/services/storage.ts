@@ -2,6 +2,27 @@ import { Effect } from "effect";
 import type { Application } from "../types";
 
 const STORAGE_KEY = "jobes-applications";
+const VERSION_KEY = "jobes-applications-version";
+const CURRENT_VERSION = 1;
+
+type MigrationFn = (data: unknown) => unknown;
+
+const migrations: Record<number, MigrationFn> = {
+  0: data => {
+    return data;
+  }
+};
+
+const runMigrations = (data: unknown, fromVersion: number): Application[] => {
+  let current = data;
+  for (let v = fromVersion; v < CURRENT_VERSION; v++) {
+    const migrate = migrations[v];
+    if (migrate) {
+      current = migrate(current);
+    }
+  }
+  return current as Application[];
+};
 
 const DEFAULT_APPLICATIONS: Application[] = [
   {
@@ -30,13 +51,27 @@ export class StorageError extends Error {
 export const getApplicationsFromStorage = Effect.try({
   try: (): Application[] => {
     if (typeof window === "undefined") return [];
+
     const data = localStorage.getItem(STORAGE_KEY);
+    const storedVersion = Number(localStorage.getItem(VERSION_KEY) ?? 0);
+
     if (data === null) {
       // First time: seed with default data
       localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_APPLICATIONS));
+      localStorage.setItem(VERSION_KEY, String(CURRENT_VERSION));
       return DEFAULT_APPLICATIONS;
     }
-    return JSON.parse(data) as Application[];
+
+    let applications = JSON.parse(data) as Application[];
+
+    // Run migrations if needed
+    if (storedVersion < CURRENT_VERSION) {
+      applications = runMigrations(applications, storedVersion);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(applications));
+      localStorage.setItem(VERSION_KEY, String(CURRENT_VERSION));
+    }
+
+    return applications;
   },
   catch: error => new StorageError(`Failed to read from storage: ${String(error)}`)
 });
@@ -46,6 +81,7 @@ export const saveApplicationsToStorage = (applications: Application[]) =>
     try: () => {
       if (typeof window === "undefined") return;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(applications));
+      localStorage.setItem(VERSION_KEY, String(CURRENT_VERSION));
     },
     catch: error => new StorageError(`Failed to write to storage: ${String(error)}`)
   });
@@ -54,6 +90,7 @@ export const clearStorage = Effect.try({
   try: () => {
     if (typeof window === "undefined") return;
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(VERSION_KEY);
   },
   catch: error => new StorageError(`Failed to clear storage: ${String(error)}`)
 });
