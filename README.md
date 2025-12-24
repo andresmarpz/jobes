@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img alt="Jobes - A personal job tracker dashboard" src="public/repo/readme-hero.png">
+</p>
+
+<p align="center">
+    Your personal job tracking dashboard.
+    <br />
+    <br />
+    <a href="#introduction"><strong>Introduction</strong></a> ·
+    <a href="#features"><strong>Features</strong></a> ·
+    <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
+    <a href="#roadmap"><strong>Roadmap</strong></a> ·
+    <a href="#getting-started"><strong>Getting Started</strong></a> ·
+    <a href="#contributing"><strong>Contributing</strong></a>
+</p>
+
+<br/>
+
+> [!NOTE]
+> This is a work-in-progress, built-in-public project. It's not feature complete, may have bugs, and will evolve over time. Feel free to fork if needed. Suggestions are welcome!
+
+## Introduction
+
+Jobes is a personal job tracking dashboard to manage companies, contacts, and application progress. It serves as a single source of truth for your job search, helping you stay organized from initial company research through offer negotiation.
+
+## Features
+
+### Company directory
+
+Track companies you're interested in with notes, career page links, and relevant information to inform your job search strategy.
+
+<img src="./public/repo/companies.png"/>
+
+### Contacts
+
+CRM-style tracking of professional connections and referrals. Keep notes on interactions, LinkedIn profiles, and referral potential for each contact.
+
+<img src="./public/repo/contacts.png"/>
+
+### Application Tracker
+
+Log every application with status updates, timeline history, and follow-up reminders. Never lose track of where you are in each process.
+
+<img src="./public/repo/applications.png"/>
+
+<!-- ![Application Tracker](docs/screenshots/applications.png) -->
+
+### Job Search Toolkit
+
+Curated resources including job boards, ATS optimization tools, and resume builders to support your search.
+
+<img src="./public/repo/tools.png"/>
+
+## Tech Stack
+
+### Framework & Runtime
+
+- [Next.js 16](https://nextjs.org/) · React framework with App Router
+- [React 19](https://react.dev/) · UI library
+- [Bun](https://bun.sh/) · JavaScript runtime and package manager
+
+### UI & Styling
+
+- [Tailwind CSS v4](https://tailwindcss.com/) · utility-first CSS
+- [shadcn/ui](https://ui.shadcn.com/) · component library
+- [Radix UI](https://www.radix-ui.com/) · accessible primitives
+- [Tabler Icons](https://tabler.io/icons) · icon set
+
+### Data & State
+
+- [Effect](https://effect.website/) · typed functional programming for services
+- [TanStack Query](https://tanstack.com/query) · async state management
+- [TanStack Table](https://tanstack.com/table) · headless table utilities
+- [React Hook Form](https://react-hook-form.com/) · form handling
+- [Zod](https://zod.dev/) · schema validation
+
+### Developer Experience
+
+- [TypeScript](https://www.typescriptlang.org/) · type safety
+- [Vitest](https://vitest.dev/) · testing framework
+- [ESLint](https://eslint.org/) · linting
+- [Prettier](https://prettier.io/) · code formatting
+
+## Roadmap
+
+There are plans to continue developing features, such as:
+
+- [x] Company directory with basic operations
+- [ ] Contact management system (in progress)
+- [ ] Application tracker with status pipeline (in progress)
+- [ ] Data export/import functionality
+- [ ] Cloud sync (optionally authenticate to save)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- [Bun](https://bun.sh/) (v1.0 or higher)
+
+### Installation
+
+1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+git clone https://github.com/yourusername/jobes.git
+cd jobes
+```
+
+2. Install dependencies
+
+```bash
+bun install
+```
+
+3. Start the development server
+
+```bash
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+bun dev          # Start development server
+bun run build    # Build for production
+bun run lint     # Run ESLint
+bun test         # Run tests
+bun run typecheck # Type check without emitting
+```
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are welcome! To ensure we can incorporate your work smoothly:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Open an issue first**: Before starting work on a new feature or significant change, please [open an issue](https://github.com/yourusername/jobes/issues) to discuss it. This helps avoid duplicate effort and ensures the feature aligns with the project direction.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Fork and branch**: Fork the repository and create a feature branch from `main`.
 
-## Deploy on Vercel
+3. **Submit a PR**: Once your changes are ready, open a pull request with a clear description of what you've done.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[MIT](LICENSE)
