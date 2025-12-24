@@ -14,6 +14,8 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { companySchema, type CompanyFormData } from "../schemas";
+import { Spinner } from "@/components/ui/spinner";
+import { useSpinDelay } from "@/hooks/use-spin-delay";
 
 interface Props {
   defaultValues?: CompanyFormData;
@@ -31,6 +33,8 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
       linkedinUrl: ""
     }
   });
+
+  const isLoading = form.formState.isSubmitting;
 
   return (
     <Form {...form}>
@@ -99,8 +103,14 @@ export function CompanyDialogForm({ defaultValues, onSubmit, onCancel }: Props) 
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? <>Save</> : "Save"}
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <Spinner /> Save
+              </>
+            ) : (
+              "Save"
+            )}
           </Button>
         </div>
       </form>
