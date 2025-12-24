@@ -17,7 +17,7 @@ export function AddApplicationDialog() {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>
+      <Button variant="raised" onClick={() => setIsOpen(true)}>
         <IconPlus className="mr-2 h-3 w-3" />
         Add Application
       </Button>
