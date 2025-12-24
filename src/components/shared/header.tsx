@@ -1,4 +1,8 @@
+"use client";
+
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const links: { href: string; label: string }[] = [
   { href: "/companies", label: "Companies" },
@@ -13,6 +17,8 @@ const links: { href: string; label: string }[] = [
 ] as const;
 
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="border-b">
       <nav>
@@ -26,20 +32,17 @@ export default function Header() {
                 <Link
                   key={`headl_${link.label}`}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                  className={cn(
+                    "text-muted-foreground hover:text-foreground text-sm transition-colors",
+                    pathname.includes(link.href) && "text-zinc-100"
+                  )}
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
           </span>
-          <span>
-            {/* <Link href="/about">
-              <div className={cn(buttonVariants({ variant: "outline" }), "rounded-full")}>
-                <IconQuestionMark />
-              </div>
-            </Link> */}
-          </span>
+          <span></span>
         </div>
       </nav>
     </header>
