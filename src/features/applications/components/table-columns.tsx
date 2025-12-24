@@ -1,11 +1,32 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
-import type { Application } from "@/features/applications/types";
-import { APPLICATION_STATUSES, APPLICATION_METHODS } from "@/features/applications/constants";
+import TableHyperlinkCell from "@/components/shared/table-hyperlink-cell";
+import type { Application, ApplicationStatus, ApplicationMethod } from "../types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { CompanyIcon } from "@/features/companies/components/company-icon";
+import { useCompany } from "@/features/companies/hooks/use-companies";
+
+export const statusConfig: Record<
+  ApplicationStatus,
+  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
+> = {
+  applied: { label: "Applied", variant: "default" },
+  screening: { label: "Screening", variant: "secondary" },
+  interviewing: { label: "Interviewing", variant: "outline" },
+  offer: { label: "Offer", variant: "default" },
+  rejected: { label: "Rejected", variant: "destructive" },
+  withdrawn: { label: "Withdrawn", variant: "secondary" }
+};
+
+export const methodLabels: Record<ApplicationMethod, string> = {
+  "cold-email": "Cold Email",
+  referral: "Referral",
+  "job-board": "Job Board",
+  linkedin: "LinkedIn",
+  other: "Other"
+};
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -16,69 +37,46 @@ function formatDate(dateString: string): string {
   });
 }
 
+function CompanyCell({ application }: { application: Application }) {
+  const { company } = useCompany(application.companyId);
+  if (!company) return null;
+  return (
+    <Link href={`/companies/${application.companyId}`} className="cursor-default">
+      <div className="flex items-center gap-2 truncate py-3 font-mono font-medium">
+        <CompanyIcon iconUrls={company.iconUrls} />
+        {company.name}
+      </div>
+    </Link>
+  );
+}
+
 export const columns: ColumnDef<Application>[] = [
-  {
-    cell: ({ row }) => (
-      <Checkbox
-        aria-label="Select row"
-        checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
-      />
-    ),
-    enableSorting: false,
-    header: ({ table }) => {
-      const isAllSelected = table.getIsAllPageRowsSelected();
-      return (
-        <Checkbox
-          aria-label="Select all rows"
-          checked={isAllSelected}
-          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-        />
-      );
-    },
-    id: "select",
-    size: 28
-  },
   {
     accessorKey: "position",
     header: "Position",
     cell: ({ row }) => (
-      <Link href={`/applications/${row.original.id}`}>
-        <div className="py-3 font-mono font-medium hover:underline">{row.original.position}</div>
+      <Link href={`/applications/${row.original.id}`} className="cursor-default">
+        <div className="truncate py-3 font-mono font-medium">{row.original.position}</div>
       </Link>
     ),
-    size: 200
+    size: 120
   },
   {
-    accessorKey: "companyName",
+    accessorKey: "company",
     header: "Company",
-    cell: ({ row }) => (
-      <div className="text-muted-foreground font-mono font-medium">{row.original.companyName}</div>
-    ),
-    size: 150
+    cell: ({ row }) => <CompanyCell application={row.original} />,
+    size: 100
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
       const status = row.original.status;
-      const statusConfig = APPLICATION_STATUSES[status];
-      return <Badge className={statusConfig.className}>{statusConfig.label}</Badge>;
-    },
-    size: 100
-  },
-  {
-    accessorKey: "applicationDate",
-    header: "Applied",
-    cell: ({ row }) => (
-      <div className="text-muted-foreground font-mono">
-        {formatDate(row.original.applicationDate)}
-      </div>
-    ),
-    sortingFn: (rowA, rowB) => {
+      const config = statusConfig[status];
       return (
-        new Date(rowA.original.applicationDate).getTime() -
-        new Date(rowB.original.applicationDate).getTime()
+        <Badge variant={config.variant} className="w-fit">
+          {config.label}
+        </Badge>
       );
     },
     size: 100
@@ -88,17 +86,36 @@ export const columns: ColumnDef<Application>[] = [
     header: "Method",
     cell: ({ row }) => {
       const method = row.original.method;
-      const methodConfig = APPLICATION_METHODS[method];
-      return <div className="text-muted-foreground font-mono">{methodConfig.label}</div>;
+      return (
+        <Badge variant="outline" className="w-fit font-normal">
+          {methodLabels[method]}
+        </Badge>
+      );
     },
-    size: 150
+    size: 100
   },
   {
     accessorKey: "salary",
     header: "Salary",
     cell: ({ row }) => (
-      <div className="text-muted-foreground font-mono">{row.original.salary || "-"}</div>
+      <span className="text-muted-foreground font-mono">{row.original.salary ?? "-"}</span>
     ),
-    size: 120
+    size: 60
+  },
+  {
+    accessorKey: "relevantUrl",
+    header: "URL",
+    cell: ({ row }) => <TableHyperlinkCell url={row.original.relevantUrl ?? undefined} />,
+    size: 80
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Applied",
+    cell: ({ row }) => (
+      <span className="text-muted-foreground font-mono text-sm">
+        {formatDate(row.original.createdAt)}
+      </span>
+    ),
+    size: 80
   }
 ];

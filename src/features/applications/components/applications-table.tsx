@@ -1,8 +1,8 @@
 "use client";
 
-import { DataTable } from "@/components/ui/data-table";
+import { ApplicationsDataTable } from "./applications-data-table";
 import { useApplications } from "../hooks/use-applications";
-import { columns } from "@/features/applications/components/table-columns";
+import { columns } from "./table-columns";
 
 export function ApplicationsTable() {
   const { applications, isLoading, error } = useApplications();
@@ -33,5 +33,5 @@ export function ApplicationsTable() {
     );
   }
 
-  return <DataTable columns={columns} data={applications} />;
+  return <ApplicationsDataTable columns={columns} data={applications} />;
 }

@@ -1,68 +1,39 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Effect } from "effect";
-import type {
-  Application,
-  CreateApplicationInput,
-  UpdateApplicationInput,
-  ApplicationStatus,
-  SortConfig
-} from "../types";
-import * as ApplicationService from "../services/application-service";
-
-type UseApplicationsState = {
-  applications: Application[];
-  isLoading: boolean;
-  error: string | null;
-};
+import { useState, useCallback, useMemo } from "react";
+import type { Application, CreateApplicationInput, UpdateApplicationInput, SortConfig } from "../types";
+import {
+  useApplicationsQuery,
+  useApplicationQuery,
+  useCreateApplicationMutation,
+  useUpdateApplicationMutation,
+  useDeleteApplicationMutation
+} from "../queries";
 
 export function useApplications(initialSortConfig?: SortConfig) {
-  const [state, setState] = useState<UseApplicationsState>({
-    applications: [],
-    isLoading: true,
-    error: null
-  });
   const [sortConfig, setSortConfig] = useState<SortConfig>(
-    initialSortConfig ?? { column: "applicationDate", direction: "desc" }
+    initialSortConfig ?? { column: "createdAt", direction: "desc" }
   );
 
-  const loadApplications = useCallback(async () => {
-    setState(prev => ({ ...prev, isLoading: true, error: null }));
-    const result = await Effect.runPromise(Effect.either(ApplicationService.getApplications));
-    if (result._tag === "Left") {
-      setState(prev => ({
-        ...prev,
-        isLoading: false,
-        error: result.left.message
-      }));
-    } else {
-      setState({ applications: result.right, isLoading: false, error: null });
-    }
-  }, []);
+  const { data: applications = [], isLoading, error, refetch } = useApplicationsQuery();
+  const createMutation = useCreateApplicationMutation();
+  const updateMutation = useUpdateApplicationMutation();
+  const deleteMutation = useDeleteApplicationMutation();
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    loadApplications();
-  }, [loadApplications]);
-
-  const sortedApplications = [...state.applications].sort((a, b) => {
-    const aValue = a[sortConfig.column];
-    const bValue = b[sortConfig.column];
-    if (aValue === null) return 1;
-    if (bValue === null) return -1;
-    if (typeof aValue === "string" && typeof bValue === "string") {
-      return sortConfig.direction === "asc"
-        ? aValue.localeCompare(bValue)
-        : bValue.localeCompare(aValue);
-    }
-    if (Array.isArray(aValue) && Array.isArray(bValue)) {
-      return sortConfig.direction === "asc"
-        ? aValue.length - bValue.length
-        : bValue.length - aValue.length;
-    }
-    return 0;
-  });
+  const sortedApplications = useMemo(() => {
+    return [...applications].sort((a, b) => {
+      const aValue = a[sortConfig.column];
+      const bValue = b[sortConfig.column];
+      if (aValue === null) return 1;
+      if (bValue === null) return -1;
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        return sortConfig.direction === "asc"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
+      return 0;
+    });
+  }, [applications, sortConfig]);
 
   const toggleSort = useCallback((column: keyof Application) => {
     setSortConfig(prev => ({
@@ -73,138 +44,60 @@ export function useApplications(initialSortConfig?: SortConfig) {
 
   const createApplication = useCallback(
     async (input: CreateApplicationInput) => {
-      const result = await Effect.runPromise(
-        Effect.either(ApplicationService.createApplication(input))
-      );
-      if (result._tag === "Left") {
-        throw new Error(result.left.message);
-      }
-      await loadApplications();
-      return result.right;
+      return createMutation.mutateAsync(input);
     },
-    [loadApplications]
+    [createMutation]
   );
 
   const updateApplication = useCallback(
     async (id: string, input: UpdateApplicationInput) => {
-      const result = await Effect.runPromise(
-        Effect.either(ApplicationService.updateApplication(id, input))
-      );
-      if (result._tag === "Left") {
-        throw new Error(result.left.message);
-      }
-      await loadApplications();
-      return result.right;
+      return updateMutation.mutateAsync({ id, input });
     },
-    [loadApplications]
-  );
-
-  const updateStatus = useCallback(
-    async (id: string, status: ApplicationStatus, note?: string) => {
-      const result = await Effect.runPromise(
-        Effect.either(ApplicationService.updateStatus(id, status, note))
-      );
-      if (result._tag === "Left") {
-        throw new Error(result.left.message);
-      }
-      await loadApplications();
-      return result.right;
-    },
-    [loadApplications]
+    [updateMutation]
   );
 
   const deleteApplication = useCallback(
     async (id: string) => {
-      const result = await Effect.runPromise(
-        Effect.either(ApplicationService.deleteApplication(id))
-      );
-      if (result._tag === "Left") {
-        throw new Error(result.left.message);
-      }
-      await loadApplications();
+      return deleteMutation.mutateAsync(id);
     },
-    [loadApplications]
+    [deleteMutation]
   );
 
   return {
     applications: sortedApplications,
-    isLoading: state.isLoading,
-    error: state.error,
+    isLoading,
+    error: error?.message ?? null,
     sortConfig,
     toggleSort,
-    refresh: loadApplications,
+    refresh: refetch,
     createApplication,
     updateApplication,
-    updateStatus,
     deleteApplication
   };
 }
 
 export function useApplication(id: string) {
-  const [application, setApplication] = useState<Application | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const loadApplication = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    const result = await Effect.runPromise(Effect.either(ApplicationService.getApplication(id)));
-    if (result._tag === "Left") {
-      setError(result.left.message);
-      setApplication(null);
-    } else {
-      setApplication(result.right);
-    }
-    setIsLoading(false);
-  }, [id]);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    loadApplication();
-  }, [loadApplication]);
+  const { data: application = null, isLoading, error, refetch } = useApplicationQuery(id);
+  const updateMutation = useUpdateApplicationMutation();
+  const deleteMutation = useDeleteApplicationMutation();
 
   const updateApplication = useCallback(
     async (input: UpdateApplicationInput) => {
-      const result = await Effect.runPromise(
-        Effect.either(ApplicationService.updateApplication(id, input))
-      );
-      if (result._tag === "Left") {
-        throw new Error(result.left.message);
-      }
-      await loadApplication();
-      return result.right;
+      return updateMutation.mutateAsync({ id, input });
     },
-    [id, loadApplication]
-  );
-
-  const updateStatus = useCallback(
-    async (status: ApplicationStatus, note?: string) => {
-      const result = await Effect.runPromise(
-        Effect.either(ApplicationService.updateStatus(id, status, note))
-      );
-      if (result._tag === "Left") {
-        throw new Error(result.left.message);
-      }
-      await loadApplication();
-      return result.right;
-    },
-    [id, loadApplication]
+    [id, updateMutation]
   );
 
   const deleteApplication = useCallback(async () => {
-    const result = await Effect.runPromise(Effect.either(ApplicationService.deleteApplication(id)));
-    if (result._tag === "Left") {
-      throw new Error(result.left.message);
-    }
-  }, [id]);
+    return deleteMutation.mutateAsync(id);
+  }, [id, deleteMutation]);
 
   return {
     application,
     isLoading,
-    error,
-    refresh: loadApplication,
+    error: error?.message ?? null,
+    refresh: refetch,
     updateApplication,
-    updateStatus,
     deleteApplication
   };
 }

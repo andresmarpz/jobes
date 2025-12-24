@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 
 type DeleteApplicationDialogProps = {
   applicationPosition: string;
+  companyName: string;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => Promise<void>;
@@ -20,6 +21,7 @@ type DeleteApplicationDialogProps = {
 
 export function DeleteApplicationDialog({
   applicationPosition,
+  companyName,
   isOpen,
   onOpenChange,
   onConfirm
@@ -42,8 +44,8 @@ export function DeleteApplicationDialog({
         <DialogHeader>
           <DialogTitle>Delete Application</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete the application for &quot;
-            {applicationPosition}&quot;? This action cannot be undone.
+            Are you sure you want to delete the &quot;{applicationPosition}&quot; application at{" "}
+            {companyName}? This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

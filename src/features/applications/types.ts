@@ -1,46 +1,33 @@
 export type ApplicationStatus =
   | "applied"
   | "screening"
-  | "interview"
+  | "interviewing"
   | "offer"
   | "rejected"
   | "withdrawn";
 
 export type ApplicationMethod =
-  | "cold_email"
-  | "contact_referral"
-  | "ats_application"
-  | "recruiter_outreach"
-  | "linkedin_easy_apply"
+  | "cold-email"
+  | "referral"
+  | "job-board"
+  | "linkedin"
   | "other";
-
-export type StatusHistoryEntry = {
-  id: string;
-  status: ApplicationStatus;
-  note: string | null;
-  changedAt: string;
-};
 
 export type Application = {
   id: string;
   position: string;
-  companyName: string;
-  companyId: string | null;
+  company: string;
+  companyId: string;
   status: ApplicationStatus;
-  applicationDate: string;
-  jobUrl: string | null;
-  salary: string | null;
+  relevantUrl: string | null;
   method: ApplicationMethod;
+  salary: string | null;
   notes: string | null;
-  statusHistory: StatusHistoryEntry[];
   createdAt: string;
   updatedAt: string;
 };
 
-export type CreateApplicationInput = Omit<
-  Application,
-  "id" | "statusHistory" | "createdAt" | "updatedAt"
->;
+export type CreateApplicationInput = Omit<Application, "id" | "companyId" | "createdAt" | "updatedAt">;
 
 export type UpdateApplicationInput = Partial<CreateApplicationInput>;
 
