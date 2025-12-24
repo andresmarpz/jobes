@@ -144,11 +144,11 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onSelect={() => setIsEditDialogOpen(true)}>
-              <IconPencil className="mr-2 h-4 w-4" />
+              <IconPencil className="h-4 w-4" />
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem variant="destructive" onSelect={() => setIsDeleteDialogOpen(true)}>
-              <IconTrash className="mr-2 h-4 w-4" />
+              <IconTrash className="h-4 w-4" />
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>

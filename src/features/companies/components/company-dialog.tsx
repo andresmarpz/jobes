@@ -14,7 +14,7 @@ import { useState } from "react";
 type CompanyDialogProps = {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  onSuccess: (data: CompanyFormData) => void | Promise<void>;
+  onSuccess: (data: CompanyFormData) => Promise<unknown> | unknown;
   defaultValues?: CompanyFormData;
   title?: string;
   description?: string;

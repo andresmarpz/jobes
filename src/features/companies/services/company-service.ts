@@ -55,6 +55,27 @@ export const getCompany = (id: string) =>
     return company;
   });
 
+export const findCompanyByName = (name: string) =>
+  Effect.gen(function* () {
+    const companies = yield* getCompaniesFromStorage;
+    const normalizedName = name.trim().toLowerCase();
+    return companies.find(c => c.name.toLowerCase() === normalizedName) ?? null;
+  });
+
+export const findOrCreateCompanyByName = (name: string) =>
+  Effect.gen(function* () {
+    const existing = yield* findCompanyByName(name);
+    if (existing) {
+      return existing;
+    }
+    return yield* createCompany({
+      name: name.trim(),
+      description: "",
+      websiteUrl: null,
+      linkedinUrl: null
+    });
+  });
+
 export const createCompany = (input: CreateCompanyInput) =>
   Effect.gen(function* () {
     const companies = yield* getCompaniesFromStorage;
