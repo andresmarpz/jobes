@@ -6,12 +6,7 @@ export type ApplicationStatus =
   | "rejected"
   | "withdrawn";
 
-export type ApplicationMethod =
-  | "cold-email"
-  | "referral"
-  | "job-board"
-  | "linkedin"
-  | "other";
+export type ApplicationMethod = "cold-email" | "referral" | "job-board" | "linkedin" | "other";
 
 export type Application = {
   id: string;
@@ -27,7 +22,10 @@ export type Application = {
   updatedAt: string;
 };
 
-export type CreateApplicationInput = Omit<Application, "id" | "companyId" | "createdAt" | "updatedAt">;
+export type CreateApplicationInput = Omit<
+  Application,
+  "id" | "companyId" | "createdAt" | "updatedAt"
+>;
 
 export type UpdateApplicationInput = Partial<CreateApplicationInput>;
 

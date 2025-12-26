@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import type { Application, CreateApplicationInput, UpdateApplicationInput, SortConfig } from "../types";
+import type {
+  Application,
+  CreateApplicationInput,
+  UpdateApplicationInput,
+  SortConfig
+} from "../types";
 import {
   useApplicationsQuery,
   useApplicationQuery,

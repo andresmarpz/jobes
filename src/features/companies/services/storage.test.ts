@@ -1,10 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { Effect } from "effect";
-import {
-  getCompaniesFromStorage,
-  saveCompaniesToStorage,
-  clearStorage,
-} from "./storage";
+import { getCompaniesFromStorage, saveCompaniesToStorage, clearStorage } from "./storage";
 import type { Company } from "../types";
 
 const STORAGE_KEY = "jobes-companies";
@@ -20,7 +16,7 @@ const createTestCompany = (overrides: Partial<Company> = {}): Company => ({
   contacts: [],
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
-  ...overrides,
+  ...overrides
 });
 
 describe("companies storage", () => {

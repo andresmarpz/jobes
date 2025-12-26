@@ -22,9 +22,7 @@ export function useCreateApplicationMutation() {
     },
     onMutate: async newApplication => {
       await queryClient.cancelQueries({ queryKey: applicationKeys.lists() });
-      const previousApplications = queryClient.getQueryData<Application[]>(
-        applicationKeys.lists()
-      );
+      const previousApplications = queryClient.getQueryData<Application[]>(applicationKeys.lists());
 
       const optimisticApplication: Application = {
         id: crypto.randomUUID(),
@@ -70,12 +68,8 @@ export function useUpdateApplicationMutation() {
       await queryClient.cancelQueries({ queryKey: applicationKeys.lists() });
       await queryClient.cancelQueries({ queryKey: applicationKeys.detail(id) });
 
-      const previousApplications = queryClient.getQueryData<Application[]>(
-        applicationKeys.lists()
-      );
-      const previousApplication = queryClient.getQueryData<Application>(
-        applicationKeys.detail(id)
-      );
+      const previousApplications = queryClient.getQueryData<Application[]>(applicationKeys.lists());
+      const previousApplication = queryClient.getQueryData<Application>(applicationKeys.detail(id));
 
       queryClient.setQueryData<Application[]>(applicationKeys.lists(), old =>
         old?.map(application =>
@@ -122,9 +116,7 @@ export function useDeleteApplicationMutation() {
     onMutate: async id => {
       await queryClient.cancelQueries({ queryKey: applicationKeys.lists() });
 
-      const previousApplications = queryClient.getQueryData<Application[]>(
-        applicationKeys.lists()
-      );
+      const previousApplications = queryClient.getQueryData<Application[]>(applicationKeys.lists());
 
       queryClient.setQueryData<Application[]>(applicationKeys.lists(), old =>
         old?.filter(application => application.id !== id)
