@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -12,9 +12,10 @@ import type { Company } from "../types";
 import { useDeleteCompanyMutation } from "../queries";
 import { DeleteCompanyDialog } from "./delete-company-dialog";
 
-type Props = React.PropsWithChildren<{
+type Props = {
   company: Company;
-}>;
+  children: React.ReactElement;
+};
 
 export default function CompanyContextMenu({ children, company }: Props) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -27,9 +28,7 @@ export default function CompanyContextMenu({ children, company }: Props) {
   return (
     <>
       <ContextMenu>
-        <ContextMenuTrigger className="w-full" asChild>
-          {children}
-        </ContextMenuTrigger>
+        <ContextMenuTrigger render={props => React.cloneElement(children, props)} />
         <ContextMenuContent className="w-48 overflow-y-hidden">
           <ContextMenuItem variant="destructive" onClick={() => setDeleteDialogOpen(true)}>
             <IconTrash className="size-4" />

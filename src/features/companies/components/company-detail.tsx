@@ -99,12 +99,15 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-8">
         <p className="text-destructive">{error ?? "Company not found"}</p>
-        <Button asChild variant="outline">
-          <Link href="/companies">
-            <IconArrowLeft className="mr-2 h-4 w-4" />
-            Back to Companies
-          </Link>
-        </Button>
+        <Button
+          variant="outline"
+          render={
+            <Link href="/companies">
+              <IconArrowLeft className="mr-2 h-4 w-4" />
+              Back to Companies
+            </Link>
+          }
+        ></Button>
       </div>
     );
   }
@@ -120,11 +123,15 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
         <title>{`Company — ${company.name}`}</title>
       </Head>
       <div className="flex items-center gap-4">
-        <Button asChild variant="ghost" size="icon">
-          <Link href="/companies" className="cursor-default">
-            <IconArrowLeft className="h-4 w-4" />
-          </Link>
-        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          render={
+            <Link href="/companies" className="cursor-default">
+              <IconArrowLeft className="h-4 w-4" />
+            </Link>
+          }
+        ></Button>
         <CompanyIcon iconUrls={company.iconUrls} size={32} />
         <h1
           ref={nameRef}
@@ -137,11 +144,13 @@ export function CompanyDetail({ companyId }: CompanyDetailProps) {
           {company.name}
         </h1>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon">
-              <IconDots className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline" size="icon">
+                <IconDots className="h-4 w-4" />
+              </Button>
+            }
+          ></DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onSelect={() => setIsEditDialogOpen(true)}>
               <IconPencil className="h-4 w-4" />

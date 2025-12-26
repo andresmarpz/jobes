@@ -15,9 +15,7 @@ async function validateAndUpdateIconUrls(company: Company): Promise<void> {
 
   // Only update if the validated URLs are different
   if (JSON.stringify(validatedUrls) !== JSON.stringify(company.iconUrls)) {
-    await Effect.runPromise(
-      CompanyService.updateCompany(company.id, { iconUrls: validatedUrls })
-    );
+    await Effect.runPromise(CompanyService.updateCompany(company.id, { iconUrls: validatedUrls }));
   }
 }
 

@@ -18,7 +18,10 @@ export type Company = {
   updatedAt: string;
 };
 
-export type CreateCompanyInput = Omit<Company, "id" | "contacts" | "iconUrls" | "createdAt" | "updatedAt">;
+export type CreateCompanyInput = Omit<
+  Company,
+  "id" | "contacts" | "iconUrls" | "createdAt" | "updatedAt"
+>;
 
 export type UpdateCompanyInput = Partial<CreateCompanyInput> & { iconUrls?: string[] };
 

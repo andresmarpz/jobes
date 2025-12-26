@@ -87,12 +87,15 @@ export function ApplicationDetail({ applicationId }: ApplicationDetailProps) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-8">
         <p className="text-destructive">{error ?? "Application not found"}</p>
-        <Button asChild variant="outline">
-          <Link href="/applications">
-            <IconArrowLeft className="mr-2 h-4 w-4" />
-            Back to Applications
-          </Link>
-        </Button>
+        <Button
+          variant="outline"
+          render={
+            <Link href="/applications">
+              <IconArrowLeft className="mr-2 h-4 w-4" />
+              Back to Applications
+            </Link>
+          }
+        ></Button>
       </div>
     );
   }
@@ -107,11 +110,15 @@ export function ApplicationDetail({ applicationId }: ApplicationDetailProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Button asChild variant="ghost" size="icon">
-          <Link href="/applications" className="cursor-default">
-            <IconArrowLeft className="h-4 w-4" />
-          </Link>
-        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          render={
+            <Link href="/applications" className="cursor-default">
+              <IconArrowLeft className="h-4 w-4" />
+            </Link>
+          }
+        ></Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold">{application.position}</h1>
           <p className="text-muted-foreground text-lg">{application.company}</p>
@@ -120,11 +127,13 @@ export function ApplicationDetail({ applicationId }: ApplicationDetailProps) {
           {statusInfo.label}
         </Badge>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon">
-              <IconDots className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline" size="icon">
+                <IconDots className="h-4 w-4" />
+              </Button>
+            }
+          ></DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onSelect={() => setIsEditDialogOpen(true)}>
               <IconPencil className="mr-2 h-4 w-4" />

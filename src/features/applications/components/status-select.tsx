@@ -28,8 +28,8 @@ const statusOptions: ApplicationStatus[] = [
 export function StatusSelect({ applicationId, currentStatus }: StatusSelectProps) {
   const updateMutation = useUpdateApplicationMutation();
 
-  const handleChange = (value: ApplicationStatus) => {
-    if (value !== currentStatus) {
+  const handleChange = (value: ApplicationStatus | null) => {
+    if (value && value !== currentStatus) {
       updateMutation.mutate({ id: applicationId, input: { status: value } });
     }
   };

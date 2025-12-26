@@ -149,7 +149,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-book text-sm;
+    @apply bg-background text-foreground font-book text-xsm;
     text-rendering: optimizeLegibility;
     user-select: none;
     cursor: default;

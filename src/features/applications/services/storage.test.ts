@@ -1,18 +1,12 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { Effect } from "effect";
-import {
-  getApplicationsFromStorage,
-  saveApplicationsToStorage,
-  clearStorage,
-} from "./storage";
+import { getApplicationsFromStorage, saveApplicationsToStorage, clearStorage } from "./storage";
 import type { Application } from "../types";
 
 const STORAGE_KEY = "jobes-applications";
 const VERSION_KEY = "jobes-applications-version";
 
-const createTestApplication = (
-  overrides: Partial<Application> = {}
-): Application => ({
+const createTestApplication = (overrides: Partial<Application> = {}): Application => ({
   id: "test-app-1",
   position: "Software Engineer",
   company: "Test Corp",
@@ -24,7 +18,7 @@ const createTestApplication = (
   notes: "Test application",
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
-  ...overrides,
+  ...overrides
 });
 
 describe("applications storage", () => {
@@ -84,9 +78,7 @@ describe("applications storage", () => {
     });
 
     it("preserves data when upgrading legacy users to versioned storage", () => {
-      const testApplications = [
-        createTestApplication({ position: "Legacy Position" }),
-      ];
+      const testApplications = [createTestApplication({ position: "Legacy Position" })];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(testApplications));
       // No version key - legacy user
 
@@ -121,14 +113,10 @@ describe("applications storage", () => {
     });
 
     it("overwrites existing data", () => {
-      const oldApplications = [
-        createTestApplication({ id: "old-1", position: "Old Position" }),
-      ];
+      const oldApplications = [createTestApplication({ id: "old-1", position: "Old Position" })];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(oldApplications));
 
-      const newApplications = [
-        createTestApplication({ id: "new-1", position: "New Position" }),
-      ];
+      const newApplications = [createTestApplication({ id: "new-1", position: "New Position" })];
       Effect.runSync(saveApplicationsToStorage(newApplications));
 
       const applications = Effect.runSync(getApplicationsFromStorage);

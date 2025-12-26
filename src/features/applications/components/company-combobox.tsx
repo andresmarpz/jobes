@@ -52,26 +52,28 @@ export function CompanyCombobox({ value, onChange }: CompanyComboboxProps) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between font-normal"
-        >
-          {selectedCompany ? (
-            <span className="flex items-center gap-2">
-              <CompanyIcon iconUrls={selectedCompany.iconUrls} size={16} />
-              {selectedCompany.name}
-            </span>
-          ) : (
-            <span className={cn("text-muted-foreground", value && "text-foreground")}>
-              {value || "Select company..."}
-            </span>
-          )}
-          <IconSelector className="ml-2 size-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between font-normal"
+          >
+            {selectedCompany ? (
+              <span className="flex items-center gap-2">
+                <CompanyIcon iconUrls={selectedCompany.iconUrls} size={16} />
+                {selectedCompany.name}
+              </span>
+            ) : (
+              <span className={cn("text-muted-foreground", value && "text-foreground")}>
+                {value || "Select company..."}
+              </span>
+            )}
+            <IconSelector className="ml-2 size-4 shrink-0 opacity-50" />
+          </Button>
+        }
+      />
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
         <Command shouldFilter={false}>
           <CommandInput
@@ -97,7 +99,10 @@ export function CompanyCombobox({ value, onChange }: CompanyComboboxProps) {
                 </CommandItem>
               ))}
               {showCreateOption && (
-                <CommandItem value={`create-${search}`} onSelect={() => handleSelect(search.trim())}>
+                <CommandItem
+                  value={`create-${search}`}
+                  onSelect={() => handleSelect(search.trim())}
+                >
                   <IconPlus className="mr-2 size-4" />
                   Create &quot;{search.trim()}&quot;
                 </CommandItem>

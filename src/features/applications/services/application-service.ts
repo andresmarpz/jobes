@@ -1,10 +1,6 @@
 import { Effect } from "effect";
 import type { Application, CreateApplicationInput, UpdateApplicationInput } from "../types";
-import {
-  getApplicationsFromStorage,
-  saveApplicationsToStorage,
-  StorageError
-} from "./storage";
+import { getApplicationsFromStorage, saveApplicationsToStorage, StorageError } from "./storage";
 import * as CompanyService from "../../companies/services/company-service";
 
 export class ApplicationNotFoundError extends Error {
