@@ -18,7 +18,7 @@ export function AddCompanyDialog() {
   return (
     <>
       <Button variant="raised" onClick={() => setIsOpen(true)}>
-        <IconPlus className="mr-2 h-3 w-3" />
+        <IconPlus className="h-3 w-3" />
         Add Company
       </Button>
       <CompanyDialog isOpen={isOpen} setIsOpen={setIsOpen} onSuccess={handleSuccess} />
