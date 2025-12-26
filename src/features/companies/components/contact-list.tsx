@@ -50,12 +50,14 @@ export function ContactList({ contacts, onAdd, onUpdate, onRemove }: ContactList
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Contacts</CardTitle>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-            <DialogTrigger asChild>
-              <Button size="sm">
-                <IconPlus className="mr-2 h-4 w-4" />
-                Add Contact
-              </Button>
-            </DialogTrigger>
+            <DialogTrigger
+              render={
+                <Button size="sm">
+                  <IconPlus className="mr-2 h-4 w-4" />
+                  Add Contact
+                </Button>
+              }
+            ></DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Add Contact</DialogTitle>
@@ -97,11 +99,13 @@ export function ContactList({ contacts, onAdd, onUpdate, onRemove }: ContactList
                       open={editingContact?.id === contact.id}
                       onOpenChange={open => setEditingContact(open ? contact : null)}
                     >
-                      <DialogTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <IconPencil className="h-4 w-4" />
-                        </Button>
-                      </DialogTrigger>
+                      <DialogTrigger
+                        render={
+                          <Button variant="ghost" size="icon">
+                            <IconPencil className="h-4 w-4" />
+                          </Button>
+                        }
+                      ></DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
                           <DialogTitle>Edit Contact</DialogTitle>

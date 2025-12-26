@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -49,9 +49,10 @@ const methodOptions: ApplicationMethod[] = [
   "other"
 ];
 
-type Props = React.PropsWithChildren<{
+type Props = {
   application: Application;
-}>;
+  children: React.ReactElement;
+};
 
 export default function ApplicationContextMenu({ children, application }: Props) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -109,9 +110,7 @@ export default function ApplicationContextMenu({ children, application }: Props)
     <>
       <Dialog open={salaryDialogOpen} onOpenChange={handleSalaryDialogClose}>
         <ContextMenu>
-          <ContextMenuTrigger className="w-full" asChild>
-            {children}
-          </ContextMenuTrigger>
+          <ContextMenuTrigger render={props => React.cloneElement(children, props)} />
           <ContextMenuContent className="w-48 overflow-y-hidden">
             <ContextMenuSub>
               <ContextMenuSubTrigger>

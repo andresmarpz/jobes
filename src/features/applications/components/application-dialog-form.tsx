@@ -105,7 +105,7 @@ export function ApplicationDialogForm({ defaultValues, onSubmit, onCancel }: Pro
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select status" />
+                      <SelectValue />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -129,7 +129,7 @@ export function ApplicationDialogForm({ defaultValues, onSubmit, onCancel }: Pro
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select method" />
+                      <SelectValue />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>

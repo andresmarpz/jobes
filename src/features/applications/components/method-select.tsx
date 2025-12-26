@@ -27,8 +27,8 @@ const methodOptions: ApplicationMethod[] = [
 export function MethodSelect({ applicationId, currentMethod }: MethodSelectProps) {
   const updateMutation = useUpdateApplicationMutation();
 
-  const handleChange = (value: ApplicationMethod) => {
-    if (value !== currentMethod) {
+  const handleChange = (value: ApplicationMethod | null) => {
+    if (value && value !== currentMethod) {
       updateMutation.mutate({ id: applicationId, input: { method: value } });
     }
   };
